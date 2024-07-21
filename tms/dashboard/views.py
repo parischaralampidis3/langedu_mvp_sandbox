@@ -4,3 +4,6 @@ from django.shortcuts import render
 def home(request):
     return render(request, 'index.html')
 
+def users(request):
+    return render(request, 'users.html')
+
