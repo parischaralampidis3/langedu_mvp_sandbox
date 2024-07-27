@@ -29,4 +29,4 @@ def create_user(request):
             return redirect('index_users')
     else:
         form = UserForm()
-    return render(request, 'user_form.html', {'form': form})
+    return render(request, 'create_user.html', {'form': form})
