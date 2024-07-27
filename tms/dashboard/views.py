@@ -13,3 +13,4 @@ def index_users(request):
     users_list = User.objects.all()
     return render(request, 'templates/users.html', {'users_list': users_list})
 
+def show_user(request):
