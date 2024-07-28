@@ -1,11 +1,8 @@
-
 from django.urls import path
-from .views import home
-from .views import students
-from .views import create_student
-from . import views
+from .views import home, students, create_student
+
 urlpatterns = [
     path('', home, name='home'),
-    path('students/', students, name='students'),
-    path('create_student/', create_student, name='create_student'),
+    path('students/', students, name='students'),  # Note the trailing slash
+    path('create_student/', create_student, name='create_student'),  # Note the trailing slash
 ]

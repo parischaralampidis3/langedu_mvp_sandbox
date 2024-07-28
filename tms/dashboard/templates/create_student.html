@@ -42,7 +42,7 @@
       </header>
       <main>
          <div style="display:flex;justify-content:center;align-items:center;margin-top:10vh;" class="container">
-            <form class="form-block" method="GET">
+           <form class="form-block" action="{% url 'create_student' %}" method="post">
                {% csrf_token %}
                <div>
                   <p class="header">Please fill the form fields.</p>
@@ -73,7 +73,7 @@
                <div class="sub-section">
                   <div class="input">
                      <label for="{{form.dob.id_for_label}}">
-                     Datebirth:
+                     Date birth:
                      </label>
                      {{form.dob}}
                      {{form.dob.errors}}
