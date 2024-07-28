@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import Group, Permission
 
 
 class CustomStudentManager(BaseUserManager):
@@ -23,6 +24,18 @@ class Student(AbstractUser):
     password = models.CharField(max_length=50)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now= True)
+
+    # Ensure related_name is unique to avoid clashes
+    groups = models.ManyToManyField(
+        Group,
+        related_name='students',  # Updated related_name
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='students',  # Updated related_name
+        blank=True
+    )
 
     objects = CustomStudentManager()
 

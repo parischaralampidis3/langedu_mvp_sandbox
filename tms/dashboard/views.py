@@ -7,14 +7,14 @@ from .form import StudentForm  # Ensure the correct import name
 def home(request):
     return render(request, 'index.html')
 
-def users(request):
+def students(request):
     return render(request, 'users.html')
 
-def index_users(request):
+def index_students(request):
     users_list = Student.objects.all()
     return render(request, 'users.html', {'users_list': users_list})
 
-def show_user(request, slug):
+def show_student(request, slug):
     try:
         user = Student.objects.get(slug=slug)
     except Student.DoesNotExist:
