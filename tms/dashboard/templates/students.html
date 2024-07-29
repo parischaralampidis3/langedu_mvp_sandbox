@@ -10,24 +10,34 @@
    </head>
    <style>
         .button{
+   width:200px;
+   margin-left:0%;
    background-color:#5997de;
    padding:10px;
-margin-left:7%;
+   text-align:center;
    color:#fff;
    font-weight:700;
    }
+
+@media only screen and (max-width: 2187px) {
+        .button{
+   width:200px;
+   margin-left:15%;
+   background-color:#5997de;
+   padding:10px;
+   text-align:center;
+   color:#fff;
+   font-weight:700;
+   }
+
+}
    </style>
    <body class="h-full">
       <div class="min-h-full">
          {% include 'views/navigation.html' %}
-         <header class="bg-white shadow">
-            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-               <h1 class="text-3xl font-bold tracking-tight text-gray-900">Users</h1>
-            </div>
-         </header>
-         <div style="margin-top:50px">
-             <a class="button" href="/create_student">Create Student</a>
-             <br><br>
+         <div class="" style="margin-top:50px">
+             <a href="{% url 'create_student' %}" target="_blank" class='button'>Create Student</a>
+               <br><br><br>
             <table class="container mx-auto" border="1">
                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -52,13 +62,8 @@ margin-left:7%;
                   {% endfor %}
                </tbody>
             </table>
-
          </div>
-
-
-
       </div>
-
       {% include 'views/footer.html' %}
    </body>
 </html>
