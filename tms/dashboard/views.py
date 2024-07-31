@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseNotAllowed
 from .form import StudentForm
 from .models import Student
 
@@ -20,3 +21,11 @@ def create_student(request):
         form = StudentForm()
 
     return render(request, 'create_student.html', {'form': form})
+
+
+def delete_student(request, id):
+    delete_entry = get_object_or_404(Student, id=id)
+    if request.method == 'POST':
+        delete_entry.delete()
+        return redirect('students')
+    return HttpResponseNotAllowed(['POST'])
