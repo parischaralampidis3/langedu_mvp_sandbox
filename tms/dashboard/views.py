@@ -1,6 +1,13 @@
 from django.shortcuts import render, redirect
+from rest_framework import viewsets
+from .serializers  import StudentSerializer
 from .form import StudentForm
 from .models import Student
+
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 
 def home(request):
     return render(request, 'index.html')
@@ -8,6 +15,9 @@ def home(request):
 def students(request):
     students_list = Student.objects.all()
     return render(request, 'students.html', {'students_list': students_list})
+
+
+
 
 
 def create_student(request):
