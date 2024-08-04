@@ -1,5 +1,6 @@
 site_name: My Docs
 nav:
   - Home: index.md
+  - Tms: tms.md
   - About: about.md
 theme: readthedocs
