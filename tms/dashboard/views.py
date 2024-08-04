@@ -23,6 +23,22 @@ def create_student(request):
     return render(request, 'create_student.html', {'form': form})
 
 
+
+def update_student(request, id):
+    student = get_object_or_404(Student, id=id)
+
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('students')
+    else:
+        form = StudentForm(instance=student)
+
+    context = {"form": form, "update": student}
+    return render(request, 'update_student.html', context)
+
+
 def delete_student(request, id):
     delete_entry = get_object_or_404(Student, id=id)
     if request.method == 'POST':
