@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load static %}
 <style>
 
 </style>
@@ -44,12 +45,10 @@
       </div>
    </div>
 </nav>
-
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-        $(document).ready(function() {
-            console.log("jQuery is working!");
+         $(document).ready(function() {
             $('#burger').click(function() {
                 $('#mobileBorder').toggle();
-            });
-        });
-    </script>
+         });
+        });</script>
