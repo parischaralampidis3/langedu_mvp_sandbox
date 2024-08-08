@@ -10,6 +10,12 @@ def students(request):
     students_list = Student.objects.all()
     return render(request, 'students.html', {'students_list': students_list})
 
+def student(request, id):
+    show_student = Student.objects.get(id=id)
+    context = {
+        'student': show_student,
+    }
+    return render(request, 'student.html', context)
 
 def create_student(request):
     if request.method == 'POST':
