@@ -1,13 +1,10 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import home, students, create_student, StudentViewSet
-
-router = DefaultRouter()
-router.register(r'students', StudentViewSet, basename='student')
+from .views import home, students, create_student, StudentListView, StudentDetailView
 
 urlpatterns = [
     path('', home, name='home'),
-    path('students/', students, name='students'),  # Note the trailing slash
-    path('create_student/', create_student, name='create_student'),  # Note the trailing slash
-    path('', include(router.urls))
+    path('studentsApi/', StudentListView.as_view(), name="student-list"),
+    path('studentApi/<int:id>/', StudentDetailView.as_view(), name="student-detail"),
+    path('students/', students, name='students'),
+    path('create_student/', create_student, name='create_student'),
 ]

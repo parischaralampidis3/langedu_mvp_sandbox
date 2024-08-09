@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
-from rest_framework import viewsets
+from rest_framework import generics
 from .serializers  import StudentSerializer
 from .form import StudentForm
 from .models import Student
 
+class StudentListView(generics.ListCreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 
-class StudentViewSet(viewsets.ModelViewSet):
+class StudentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
@@ -15,10 +18,6 @@ def home(request):
 def students(request):
     students_list = Student.objects.all()
     return render(request, 'students.html', {'students_list': students_list})
-
-
-
-
 
 def create_student(request):
     if request.method == 'POST':
