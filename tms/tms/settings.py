@@ -40,12 +40,8 @@ INSTALLED_APPS = [
     "tailwind",
     "dashboard",
     "theme",
-<<<<<<< HEAD
     "django_browser_reload",
-
-=======
     "rest_framework"
->>>>>>> rest
 ]
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
