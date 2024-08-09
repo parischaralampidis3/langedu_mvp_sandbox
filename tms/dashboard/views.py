@@ -1,7 +1,21 @@
+<<<<<<< HEAD
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
+=======
+from django.shortcuts import render, redirect
+from rest_framework import generics
+from .serializers  import StudentSerializer
+>>>>>>> rest
 from .form import StudentForm
 from .models import Student
+
+class StudentListView(generics.ListCreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 
 def home(request):
     return render(request, 'index.html')
@@ -10,6 +24,7 @@ def students(request):
     students_list = Student.objects.all()
     return render(request, 'students.html', {'students_list': students_list})
 
+<<<<<<< HEAD
 def student(request, id):
     show_student = Student.objects.get(id=id)
     context = {
@@ -17,6 +32,8 @@ def student(request, id):
     }
     return render(request, 'student.html', context)
 
+=======
+>>>>>>> rest
 def create_student(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)

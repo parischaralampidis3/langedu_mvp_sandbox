@@ -12,6 +12,7 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
+<<<<<<< HEAD
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
@@ -26,6 +27,8 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+=======
+>>>>>>> rest
 class Student(models.Model):
     username = models.CharField(max_length=100)
     course_id = models.ManyToManyField(Course)
