@@ -41,8 +41,6 @@ def create_student(request):
 
     return render(request, 'create_student.html', {'form': form})
 
-
-
 def update_student(request, id):
     student = get_object_or_404(Student, id=id)
 
