@@ -8,6 +8,8 @@ class Student(models.Model):
     last_name = models.CharField(max_length=255)
     dob = models.DateField()
     email = models.EmailField(max_length=50)
+    is_active = models.BooleanField(default=True)
+    is_enabled = models.BooleanField(default = True)
     username = models.CharField(max_length=100)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
