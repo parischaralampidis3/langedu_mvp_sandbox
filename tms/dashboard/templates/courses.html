@@ -1,0 +1,80 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html class="h-full bg-gray-100" lang="en">
+<head>
+    <title>Django Tailwind</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+    <style>
+        .button {
+            width: 200px;
+            margin-left: 0%;
+            background-color: #5997de;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            font-weight: 700;
+        }
+        #delete:hover{
+        cursor:pointer;
+        }
+        #border{
+        width:500px;
+        border:1px solid #ddd;
+        }
+         #delete{
+         color:tomato;
+         font-weight:700;
+         }
+         #update{
+         color:blue;
+         font-weight:700;
+         }
+         #show{
+          color:green;
+         font-weight:700;
+         }
+             @media only screen and (max-width: 800px) {
+            .button {
+                width: 200px;
+                margin-left: 15%;
+                background-color: #5997de;
+                padding: 10px;
+                text-align: center;
+                color: #fff;
+                font-weight: 700;
+            }
+              #border{
+        width:350px;
+        border:1px solid #ddd;
+        }
+        }
+
+        @media only screen and (max-width: 2187px) {
+            .button {
+                width: 200px;
+                margin-left: 15%;
+                background-color: #5997de;
+                padding: 10px;
+                text-align: center;
+                color: #fff;
+                font-weight: 700;
+            }
+        }
+    </style>
+</head>
+<body class="h-full">
+    <div class="min-h-full">
+        {% include 'views/navigation.html' %}
+        <div class="" style="margin-top:50px">
+            <a href="{% url 'create_student' %}" target="_blank" class="button">Create Course</a>
+            <br><br><br>
+
+
+        </div>
+    </div>
+    {% include 'views/footer.html' %}
+</body>
+</html>

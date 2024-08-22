@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm
-from .models import Student
+from .models import Student, Course
 
 def home(request):
     return render(request, 'index.html')
@@ -51,3 +51,7 @@ def delete_student(request, id):
         delete_entry.delete()
         return redirect('students')
     return HttpResponseNotAllowed(['POST'])
+
+def courses(request):
+    courses_list = Course.objects.all()
+    return render(request, 'courses.html', {'courses_list': courses_list})
