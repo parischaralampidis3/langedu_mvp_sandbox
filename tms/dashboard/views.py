@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
-from .form import StudentForm
+from .form import StudentForm,CourseForm
 from .models import Student, Course
 
 def home(request):
@@ -8,14 +8,14 @@ def home(request):
 
 def students(request):
     students_list = Student.objects.all()
-    return render(request, 'students.html', {'students_list': students_list})
+    return render(request, './students/students.html', {'students_list': students_list})
 
 def student(request, id):
     show_student = Student.objects.get(id=id)
     context = {
         'student': show_student,
     }
-    return render(request, 'student.html', context)
+    return render(request, './students/student.html', context)
 
 def create_student(request):
     if request.method == 'POST':
@@ -26,7 +26,7 @@ def create_student(request):
     else:
         form = StudentForm()
 
-    return render(request, 'create_student.html', {'form': form})
+    return render(request, './students/create_student.html', {'form': form})
 
 
 
@@ -42,7 +42,7 @@ def update_student(request, id):
         form = StudentForm(instance=student)
 
     context = {"form": form, "update": student}
-    return render(request, 'update_student.html', context)
+    return render(request, './students/update_student.html', context)
 
 
 def delete_student(request, id):
@@ -55,3 +55,20 @@ def delete_student(request, id):
 def courses(request):
     courses_list = Course.objects.all()
     return render(request, 'courses.html', {'courses_list': courses_list})
+
+def course(request, id):
+    show_course = Course.objects.get(id=id)
+    context = {
+        'course.html': show_course
+    }
+    return render(request, 'course.html', context)
+
+def create_course(request):
+    if request.method == 'POST':
+        course_form = CourseForm(request.POST)
+        if course_form.is_valid():
+            course_form.save()
+            return redirect('courses')
+    else:
+        course_form = CourseForm()
+    return render(request, 'create_course.html', {'course_form': course_form})
