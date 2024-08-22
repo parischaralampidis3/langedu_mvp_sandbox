@@ -1,11 +1,24 @@
 import pygame
+import pygame_menu
 import requests
 
 pygame.init()
 
+# Load and scale the character image
+character_image = pygame.image.load('assets/images/lang.png')
+character_image = pygame.transform.scale(character_image, (250, 250))
+
+# Set the velocity for character movement
+velocity = 3
+
+# Set initial coordinates for the character
+x_position = 250
+y_position = 250
+
 # Set up display
 window_width, window_height = 800, 600
 screen = pygame.display.set_mode((window_width, window_height))
+clock = pygame.time.Clock()
 pygame.display.set_caption('GLMS_01')
 
 # Set up font
@@ -35,6 +48,8 @@ def display_text(text, x, y):
 
 def main():
     """Main function to run the Pygame application."""
+    global x_position, y_position
+
     running = True
     student_data = fetch_student_data()
 
@@ -43,17 +58,49 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
+        # Get the set of keys currently being pressed
+        keys = pygame.key.get_pressed()
+
+        # Update character's position based on key presses
+        if keys[pygame.K_LEFT] and x_position > 0:
+            x_position -= velocity
+        if keys[pygame.K_RIGHT] and x_position < window_width - 250:
+            x_position += velocity
+        if keys[pygame.K_UP] and y_position > 0:
+            y_position -= velocity
+        if keys[pygame.K_DOWN] and y_position < window_height - 250:
+            y_position += velocity
+
+        # Fill the screen with white
         screen.fill(WHITE)
 
+        # Display student data (if needed)
         y_offset = 50
         for student in student_data:
             student_info = f"Username: {student.get('username', 'N/A')}"
             display_text(student_info, 50, y_offset)
             y_offset += 50
 
+        # Draw the character at its new position
+        screen.blit(character_image, (x_position, y_position))
+
+        # Update the display
         pygame.display.flip()
+        clock.tick(60)
 
     pygame.quit()
 
-if __name__ == "__main__":
+def start_game():
+    """Function to start the game from the menu."""
     main()
+
+def create_menu():
+    menu = pygame_menu.Menu('Introduction', 400, 300,
+                            theme=pygame_menu.themes.THEME_BLUE)
+    menu.add.button('Play', start_game)
+    menu.add.button('Quit', pygame_menu.events.EXIT)
+
+    menu.mainloop(screen)
+
+if __name__ == "__main__":
+    create_menu()
