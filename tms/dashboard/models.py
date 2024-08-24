@@ -1,8 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
-=======
 
->>>>>>> course
 class Course(models.Model):
     title = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)

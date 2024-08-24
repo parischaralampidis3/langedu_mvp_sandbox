@@ -1,16 +1,15 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
-<<<<<<< HEAD
+
 from django.shortcuts import render, redirect
 from rest_framework import generics
 from .serializers  import StudentSerializer
 from .form import StudentForm
 from .models import Student
-=======
+
 from .form import StudentForm,CourseForm
 from .models import Student, Course
->>>>>>> course
 
 class StudentListView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
