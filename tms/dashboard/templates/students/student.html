@@ -15,8 +15,21 @@
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
         <div class="" style="margin-top:50px">
-            <div id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
-                <div>
+     <div style="background-color:#ddd; width:400px;padding:20px; margin-left:50px;margin-top:0px;" class="mx-auto">
+                        <h1 class="text-center font-bold">Enrolled Courses</h1>
+                        {% if enrollments %}
+                            <ul>
+                                {% for enrollment in enrollments %}
+                                    <li class="text-center">{{ enrollment.course.title }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No courses enrolled.</p>
+                        {% endif %}
+                </div>
+            <div id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5  border-b border-gray-200">
+
+                <div style="margin-top:50px;">
                     <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Username:</h3>
                     <p class="text-center">{{ student.username }}</p>
                 </div>
@@ -38,19 +51,13 @@
 
 
 
-                <h1>Enrolled Courses</h1>
-                {% if enrollments %}
-                    <ul>
-                        {% for enrollment in enrollments %}
-                            <li>{{ enrollment.course.title }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No courses enrolled.</p>
-                {% endif %}
 
             </div>
+
+
+
         </div>
+
     </div>
     {% include 'views/footer.html' %}
 </body>
