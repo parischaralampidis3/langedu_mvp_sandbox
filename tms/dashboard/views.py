@@ -104,12 +104,12 @@ def enroll_student(request):
         enrollment_form = EnrollmentForm(request.POST)
         if enrollment_form.is_valid():
             enrollment_form.save()
-            return redirect('courses')  # Redirect to a success page or another relevant page
+            return redirect('courses')
     else:
-        enrollment_form = EnrollmentForm()  # Initialize an empty form for GET requests
+        enrollment_form = EnrollmentForm()
 
     context = {
-        'enrollment_form': enrollment_form  # The key should match the form variable name in the template
+        'enrollment_form': enrollment_form
     }
     return render(request, 'enroll_student.html', context)
 
