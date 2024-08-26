@@ -35,11 +35,20 @@
                     <p class="ml-4 text-center">{{ student.dob }}</p>
                 </div>
 
-                <ul>
-                    {% for course in student_course %}
-                    <li>{{ course.title }}</li>
-                    {% endfor %}
-                </ul>
+
+
+
+                <h1>Enrolled Courses</h1>
+                {% if enrollments %}
+                    <ul>
+                        {% for enrollment in enrollments %}
+                            <li>{{ enrollment.course.title }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No courses enrolled.</p>
+                {% endif %}
+
             </div>
         </div>
     </div>

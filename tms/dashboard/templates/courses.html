@@ -12,10 +12,15 @@
             width: 200px;
             margin-left: 0%;
             background-color: #5997de;
-            padding: 10px;
+            padding: 6px;
             text-align: center;
             color: #fff;
             font-weight: 700;
+        }
+        .flex-buttons{
+        display:flex;
+        flex-direction:row;
+
         }
         #delete:hover{
         cursor:pointer;
@@ -37,6 +42,14 @@
          font-weight:700;
          }
              @media only screen and (max-width: 800px) {
+        .flex-buttons{
+        display:flex;
+        flex-direction:column;
+         align-items:center;
+        }
+        .second-button{
+        margin-top:20px;
+        }
             .button {
                 width: 200px;
                 margin-left: 15%;
@@ -49,6 +62,7 @@
               #border{
         width:350px;
         border:1px solid #ddd;
+
         }
         }
 
@@ -69,9 +83,12 @@
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
         <div class="" style="margin-top:50px">
-            <a href="{% url 'create_course' %}" target="_blank" class="button">Create Course</a>
-            <a href = "{% url 'enroll_student'%}" target="_blank" class="button">Enroll a User</a>
-            <br><br><br>
+            <div class="flex-buttons">
+                <a href="{% url 'create_course' %}" target="_blank" class="button">Create Course</a>
+                <a class="second-button button" href = "{% url 'enroll_student'%}" target="_blank" class="button">Enroll User</a>
+
+            </div>
+                <br><br><br>
             {% for course in courses_list %}
                 <div  id="border" class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
                      <div>

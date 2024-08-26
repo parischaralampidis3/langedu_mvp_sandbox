@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm
-from .models import Student, Course
+from .models import Student, Course, Enrollment
 
 def home(request):
     return render(request, 'index.html')
@@ -12,8 +12,10 @@ def students(request):
 
 def student(request, id):
     show_student = get_object_or_404(Student, id=id)
+    enrollments = Enrollment.objects.filter(student=show_student)
     context = {
         'student': show_student,
+        'enrollments': enrollments,
     }
     return render(request, './students/student.html', context)
 
@@ -91,3 +93,7 @@ def enroll_student(request):
         'enrollment_form': enrollment_form  # The key should match the form variable name in the template
     }
     return render(request, 'enroll_student.html', context)
+
+
+
+
