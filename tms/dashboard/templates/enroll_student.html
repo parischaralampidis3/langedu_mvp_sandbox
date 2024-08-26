@@ -1,0 +1,5 @@
+<form method="post">
+    {% csrf_token %}
+    {{ enrollment_form.as_p }}  <!-- Use the correct variable name here -->
+    <button type="submit">Enroll</button>
+</form>

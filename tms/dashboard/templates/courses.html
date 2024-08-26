@@ -70,9 +70,16 @@
         {% include 'views/navigation.html' %}
         <div class="" style="margin-top:50px">
             <a href="{% url 'create_course' %}" target="_blank" class="button">Create Course</a>
+            <a href = "{% url 'enroll_student'%}" target="_blank" class="button">Enroll a User</a>
             <br><br><br>
-
-
+            {% for course in courses_list %}
+                <div  id="border" class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
+                     <div>
+                        <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
+                        <p class="text-center">{{ course.title}}</p>
+                    </div>
+                </div>
+            {% endfor%}
         </div>
     </div>
     {% include 'views/footer.html' %}

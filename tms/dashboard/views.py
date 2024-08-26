@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
-from .form import StudentForm,CourseForm
+from .form import StudentForm, CourseForm, EnrollmentForm
 from .models import Student, Course
 
 def home(request):
@@ -11,11 +11,12 @@ def students(request):
     return render(request, './students/students.html', {'students_list': students_list})
 
 def student(request, id):
-    show_student = Student.objects.get(id=id)
+    show_student = get_object_or_404(Student, id=id)
     context = {
         'student': show_student,
     }
     return render(request, './students/student.html', context)
+
 
 def create_student(request):
     if request.method == 'POST':
@@ -68,7 +69,25 @@ def create_course(request):
         course_form = CourseForm(request.POST)
         if course_form.is_valid():
             course_form.save()
-            return redirect('courses')
+            return redirect('courses')  # Redirect to the courses list page after successful form submission
     else:
         course_form = CourseForm()
-    return render(request, 'create_course.html', {'course_form': course_form})
+
+    context = {
+        'CourseForm': course_form  # Pass the form as 'CourseForm' to match the template
+    }
+    return render(request, './create_course.html', context)
+
+def enroll_student(request):
+    if request.method == 'POST':
+        enrollment_form = EnrollmentForm(request.POST)
+        if enrollment_form.is_valid():
+            enrollment_form.save()
+            return redirect('courses')  # Redirect to a success page or another relevant page
+    else:
+        enrollment_form = EnrollmentForm()  # Initialize an empty form for GET requests
+
+    context = {
+        'enrollment_form': enrollment_form  # The key should match the form variable name in the template
+    }
+    return render(request, 'enroll_student.html', context)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, Course
+from .models import Student, Course, Enrollment
 
 
 class StudentForm(forms.ModelForm):
@@ -14,10 +14,14 @@ class StudentForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Email'}),
         }
 class CourseForm(forms.ModelForm):
-
     class Meta:
         model = Course
         fields = ['title']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input border pt-5 rounded', 'placeholder': 'Title'})
         }
+
+class EnrollmentForm(forms.ModelForm):
+    class Meta:
+        model = Enrollment
+        fields = ['student', 'course']

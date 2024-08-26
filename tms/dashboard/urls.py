@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, students, student, create_student, update_student, delete_student, courses, course, create_course
+from .views import home, students, student, create_student, update_student, enroll_student, delete_student, courses, course, create_course
 urlpatterns = [
     path('', home, name='home'),
     path('students/', students, name='students'),  # Note the trailing slash
@@ -9,5 +9,7 @@ urlpatterns = [
     path('delete_student/<int:id>/', delete_student, name='delete_student'),
     path('courses/', courses, name='courses'),
     path('course/<int:id>', course, name='course'),
-    path('create_course/', create_course, name='create_course')
+    path('create_course/', create_course, name='create_course'),
+    path('enroll_student', enroll_student, name='enroll_student'),
+
 ]
