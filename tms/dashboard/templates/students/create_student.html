@@ -40,7 +40,7 @@
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">Create a user</h1>
          </div>
       </header>
-      <main>
+
          <div style="display:flex;justify-content:center;align-items:center;margin-top:10vh;" class="container">
            <form class="form-block" action="{% url 'create_student' %}" method="post">
                {% csrf_token %}
@@ -91,8 +91,9 @@
                   The fields that are marked with (*) are required
                </p>
             </form>
-      </main>
+
       </div>
+
       {% include 'views/footer.html' %}
    </body>
 </html>

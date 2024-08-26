@@ -33,41 +33,7 @@
       }
    </style>
    <body class="h-full">
-      <div class="min-h-full">
-<<<<<<< HEAD
-         {% include 'views/navigation.html' %}
-         <header class="bg-white shadow">
-            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-               <h1 class="text-3xl font-bold tracking-tight text-gray-900">Create a course</h1>
-            </div>
-         </header>
-         <main>
-                     <div style="display:flex;justify-content:center;align-items:center;margin-top:10vh;" class="container">
-                          <form class="form-block" action="{% url 'create_course' %}" method="post">
-                             {% csrf_token %}
-                             <div>
-                                <p>
-                                   Please fill the form fields.
-                                </p>
-                                <div class="sub-section">
-                                   <div class="input">
-                                      <label for="{{course_form.title.id_for_label}}">
-                                         <span style="color:#c24b38">*</span>
-                                         Title:
-                                      </label>
-                                      {{course_form.title}}
-                                      {{course_form.errors}}
-                                   </div>
-                                   {% include 'partials/submit_button.html' %}
-                                   <p class="warning">
-                                      The fields that are marked with (*) are required
-                                   </p>
-                                </div>
-                             </div>
-                          </form>
-                     </div>
-         </main>
-=======
+
       {% include 'views/navigation.html' %}
       <header class="bg-white shadow">
          <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -82,9 +48,8 @@
                   <p class="header">Please fill the form fields.</p>
                </div>
 
-               <div>
-
-                  <div class="input">
+               <div class="sub-section">
+                    <div class="input">
                      <label  for="{{CourseForm.id_for_label}}">
                         <span style="color:#c24b38;">*</span>Title:
                      </label>
@@ -98,8 +63,9 @@
                </p>
             </form>
 
->>>>>>> course
       </div>
+<div style="margin-top:200px;">
       {% include 'views/footer.html' %}
+</div>
    </body>
 </html>
