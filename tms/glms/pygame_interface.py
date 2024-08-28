@@ -14,7 +14,7 @@ velocity = 3
 
 # Set initial coordinates for the character
 x_position = 225
-y_position = 80
+y_position = 50
 object_x_position = 225
 object_y_position = 400
 
@@ -31,9 +31,7 @@ font = pygame.font.Font(None, 36)
 # Define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-
-# Initializing color
-color = (255, 0, 0)
+RED = (255, 0, 0)
 
 # API URL
 API_URL = "http://localhost:8000/studentsApi/"
@@ -71,11 +69,11 @@ def main():
         # Update character's position based on key presses
         if keys[pygame.K_LEFT] and x_position > 0:
             x_position -= velocity
-        if keys[pygame.K_RIGHT] and x_position < window_width - 250:
+        if keys[pygame.K_RIGHT] and x_position < window_width - character_image.get_width():
             x_position += velocity
         if keys[pygame.K_UP] and y_position > 0:
             y_position -= velocity
-        if keys[pygame.K_DOWN] and y_position < window_height - 200:
+        if keys[pygame.K_DOWN] and y_position < window_height - character_image.get_height():
             y_position += velocity
 
         # Fill the screen with white
@@ -88,9 +86,8 @@ def main():
             display_text(student_info, 50, y_offset)
             y_offset += 50
 
-        # Draw the background and character
+        # Draw the background
         screen.blit(bg_image, (0, 0))
-        screen.blit(character_image, (x_position, y_position))
 
         # Calculate the position for the rectangle
         rect_width, rect_height = 150, 60
@@ -98,7 +95,21 @@ def main():
         rect_y = window_height - rect_height - 10  # Position near the bottom with a margin of 10px
 
         # Draw the rectangle at the bottom of the screen
-        pygame.draw.rect(screen, color, pygame.Rect(rect_x, rect_y, rect_width, rect_height))
+        red_box_rect = pygame.Rect(rect_x, rect_y, rect_width, rect_height)
+        pygame.draw.rect(screen, RED, red_box_rect)
+
+        # Create a rectangle for the character image based on its current position
+        character_rect = character_image.get_rect(topleft=(x_position, y_position))
+
+        # Check for collision between the character image and the red box
+        if character_rect.colliderect(red_box_rect):
+            print("Collision detected!")
+            color = BLACK  # Change the color to black as an indication of collision
+        else:
+            color = RED  # Reset the color if no collision
+
+        # Draw the character
+        screen.blit(character_image, (x_position, y_position))
 
         # Update the display
         pygame.display.flip()
@@ -115,8 +126,8 @@ def create_menu():
                             theme=pygame_menu.themes.THEME_BLUE)
     menu.add.button('Play', start_game)
     menu.add.button('Quit', pygame_menu.events.EXIT)
-
     menu.mainloop(screen)
 
 if __name__ == "__main__":
     create_menu()
+
