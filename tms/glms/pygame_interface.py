@@ -6,16 +6,20 @@ pygame.init()
 
 # Load and scale the character image
 character_image = pygame.image.load('assets/images/lang.png')
-character_image = pygame.transform.scale(character_image, (250, 250))
+character_image = pygame.transform.scale(character_image, (300, 300))
+bg_image = pygame.image.load('assets/images/intro_scene.png')
 
 # Set the velocity for character movement
 velocity = 3
 
 # Set initial coordinates for the character
-x_position = 250
-y_position = 250
+x_position = 225
+y_position = 80
+object_x_position = 225
+object_y_position = 400
 
 # Set up display
+surface = pygame.display.set_mode((object_x_position, object_y_position))
 window_width, window_height = 800, 600
 screen = pygame.display.set_mode((window_width, window_height))
 clock = pygame.time.Clock()
@@ -27,6 +31,9 @@ font = pygame.font.Font(None, 36)
 # Define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+
+# Initializing color
+color = (255, 0, 0)
 
 # API URL
 API_URL = "http://localhost:8000/studentsApi/"
@@ -68,7 +75,7 @@ def main():
             x_position += velocity
         if keys[pygame.K_UP] and y_position > 0:
             y_position -= velocity
-        if keys[pygame.K_DOWN] and y_position < window_height - 250:
+        if keys[pygame.K_DOWN] and y_position < window_height - 200:
             y_position += velocity
 
         # Fill the screen with white
@@ -81,8 +88,17 @@ def main():
             display_text(student_info, 50, y_offset)
             y_offset += 50
 
-        # Draw the character at its new position
+        # Draw the background and character
+        screen.blit(bg_image, (0, 0))
         screen.blit(character_image, (x_position, y_position))
+
+        # Calculate the position for the rectangle
+        rect_width, rect_height = 150, 60
+        rect_x = (window_width - rect_width) // 2  # Center horizontally
+        rect_y = window_height - rect_height - 10  # Position near the bottom with a margin of 10px
+
+        # Draw the rectangle at the bottom of the screen
+        pygame.draw.rect(screen, color, pygame.Rect(rect_x, rect_y, rect_width, rect_height))
 
         # Update the display
         pygame.display.flip()
