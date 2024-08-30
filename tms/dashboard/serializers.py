@@ -7,7 +7,7 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'dob', 'created_on',
                   'updated_on']
 
-class CourseSerializer(serializers.ModelSerializer):
+class EnrollmentCourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course

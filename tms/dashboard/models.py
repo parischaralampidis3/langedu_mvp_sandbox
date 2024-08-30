@@ -1,7 +1,6 @@
 from django.db import models
 
-<<<<<<< HEAD
-=======
+
 class Course(models.Model):
     title = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -15,7 +14,7 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
->>>>>>> course
+
 class Student(models.Model):
     username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=255)

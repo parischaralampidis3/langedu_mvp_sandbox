@@ -1,15 +1,14 @@
-<<<<<<< HEAD
+
 from django.shortcuts import render, redirect
 from rest_framework import generics
-from .serializers  import StudentSerializer
-from .form import StudentForm
-from .models import Student
-=======
+from .serializers  import StudentSerializer, EnrollmentCourseSerializer
+from .form import StudentForm, CourseForm
+from .models import Student, Course
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm
 from .models import Student, Course, Enrollment
->>>>>>> course
 
 class StudentListView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
@@ -18,6 +17,14 @@ class StudentListView(generics.ListCreateAPIView):
 class StudentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+class EnrollmentCourseListView(generics.ListCreateAPIView):
+    queryset = Enrollment.objects.all()
+    serializer_class =  EnrollmentCourseSerializer
+
+class EnrollmentCoursesDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentCourseSerializer
 
 def home(request):
     return render(request, 'index.html')
