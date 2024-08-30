@@ -7,7 +7,7 @@ from .views import StudentListView, StudentDetailView, EnrollmentCourseListView,
 urlpatterns = [
     path('', home, name='home'),
     path('coursesApi/', EnrollmentCourseListView.as_view(), name="courses-list"),
-    path('coursesApi/<ind:id>', EnrollmentCoursesDetailView.as_view(), name="courses-detail"),
+    path('coursesApi/<int:id>', EnrollmentCoursesDetailView.as_view(), name="courses-detail"),
     path('studentsApi/', StudentListView.as_view(), name="student-list"),
     path('studentApi/<int:id>/', StudentDetailView.as_view(), name="student-detail"),
     path('students/', students, name='students'),  # List of students
