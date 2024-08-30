@@ -95,21 +95,17 @@ def main():
             display_text(student_info, 50, y_offset)
             y_offset += 50
 
-        # Draw the background
+
         screen.blit(bg_image, (0, 0))
 
-        # Draw the character
         screen.blit(character_image, (x_position, y_position))
 
-        # Draw the obstacle
         pygame.draw.rect(screen, (0, 0, 0), obstacle, 4)
 
-        # Check for collision with the obstacle
         if collision_rect.colliderect(obstacle):
-            pygame.draw.rect(screen, BLACK, obstacle)
+            pygame.draw.rect(surface, BLACK, obstacle)
             display_text("Collision detected!", 500, 300)
 
-        # Update the display
         pygame.display.flip()
         clock.tick(60)
 
