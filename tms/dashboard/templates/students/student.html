@@ -1,0 +1,57 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html class="h-full bg-gray-100" lang="en">
+<head>
+    <title>Django Tailwind</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+    <style>
+        /* Your existing styles */
+    </style>
+</head>
+<body class="h-full">
+    <div class="min-h-full">
+        {% include 'views/navigation.html' %}
+        <div class="" style="margin-top:50px">
+            <div id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
+                <div>
+                    <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Username:</h3>
+                    <p class="text-center">{{ student.username }}</p>
+                </div>
+                <div style="display:flex; flex-direction:row; justify-content:center; margin-top:30px;">
+                    <h3 style="font-size:17px;font-weight:bold;color:tomato;text-align:center;">First Name:</h3>
+                    <p class="ml-4 text-center">{{ student.first_name }}</p>
+
+                    <h3 style="font-size:17px;font-weight:bold;color:tomato;text-align:center; margin-left:20px;">Last Name:</h3>
+                    <p class="ml-4 text-center">{{ student.last_name }}</p>
+                </div>
+                <div style="display:flex; flex-direction:row; justify-content:center; margin-top:50px;">
+                    <h3 style="font-size:17px;font-weight:bold;color:tomato;text-align:center; margin-left:0px;">Email:</h3>
+                    <p class="ml-4 text-center">{{ student.email }}</p>
+
+                    <h3 style="font-size:17px;font-weight:bold;color:tomato;text-align:center; margin-left:20px;">Date Birth:</h3>
+                    <p class="ml-4 text-center">{{ student.dob }}</p>
+                </div>
+
+
+
+
+                <h1>Enrolled Courses</h1>
+                {% if enrollments %}
+                    <ul>
+                        {% for enrollment in enrollments %}
+                            <li>{{ enrollment.course.title }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No courses enrolled.</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    {% include 'views/footer.html' %}
+</body>
+</html>

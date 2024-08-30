@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     "tailwind",
     "dashboard",
     "theme",
+<<<<<<< HEAD
     "rest_framework"
+=======
+    "django_browser_reload",
+
+>>>>>>> course
 ]
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
@@ -48,6 +53,7 @@ REST_FRAMEWORK = {
         # Other renderers if needed
     ),
 }
+
 
 TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
