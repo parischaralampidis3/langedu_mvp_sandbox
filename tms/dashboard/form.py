@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, Course, Enrollment
+from .models import Student, Course, Enrollment, CourseMaterial, AssignCourseToCourseMaterial
 
 
 class StudentForm(forms.ModelForm):
@@ -10,7 +10,8 @@ class StudentForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'form-input border pt-5 rounded', 'placeholder': 'First Name'}),
             'last_name': forms.TextInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Last Name'}),
             'username': forms.TextInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Username'}),
-            'dob': forms.DateInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Date of Birth', 'type': 'date'}),
+            'dob': forms.DateInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Date of Birth',
+                                          'type': 'date'}),
             'email': forms.EmailInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Email'}),
         }
 class CourseForm(forms.ModelForm):
@@ -21,7 +22,20 @@ class CourseForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-input border pt-5 rounded', 'placeholder': 'Title'})
         }
 
+class CourseMaterialForm(forms.ModelForm):
+
+    class Meta:
+        model = CourseMaterial
+        fields = ['course_material_title', 'course_material_description', 'course_material_isActive',
+                  "course_material_difficulty", "course_material_category"]
+
 class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
         fields = ['student', 'course']
+
+class AssignCourseToCourseMaterialForm(forms.ModelForm):
+
+    class Meta:
+        model = AssignCourseToCourseMaterial
+        fields = ['course', 'courseMaterial']

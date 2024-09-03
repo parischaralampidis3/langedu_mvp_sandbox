@@ -13,6 +13,21 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
+class CourseMaterial(models.Model):
+    course_material_title = models.CharField(max_length=100)
+    course_material_description = models.CharField(max_length=100)
+    course_material_difficulty = models.CharField(max_length=100)
+    course_material_isActive = models.BooleanField(default=True)
+    course_material_category = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['course_material_title']
+
+    def __str__(self):
+        return self.course_material_title
+
 class Student(models.Model):
     username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=255)
@@ -38,3 +53,11 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return f'{self.student.username} enrolled in {self.course.title}'
+
+class AssignCourseToCourseMaterial(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    courseMaterial = models.ForeignKey(CourseMaterial, on_delete=models.CASCADE)
+    assignment_date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.course.title} is assigned in {self.courseMaterial.course_material_title}'
