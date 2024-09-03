@@ -17,6 +17,7 @@ class StudentForm(forms.ModelForm):
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
+        # add a description string at fields array
         fields = ['title']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input border pt-5 rounded', 'placeholder': 'Title'})

@@ -2,6 +2,7 @@ from django.db import models
 
 class Course(models.Model):
     title = models.CharField(max_length=255)
+    #add a description field here
     is_active = models.BooleanField(default=True)
     is_enabled = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
