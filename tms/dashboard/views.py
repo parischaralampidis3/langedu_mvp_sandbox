@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
-from .form import StudentForm, CourseForm, EnrollmentForm,LessonForm
+from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm
 from .models import Student, Course, Enrollment, Lesson
 
 def home(request):
@@ -54,14 +54,14 @@ def delete_student(request, id):
 
 def courses(request):
     courses_list = Course.objects.all()
-    return render(request, 'courses.html', {'courses_list': courses_list})
+    return render(request, './courses/courses.html', {'courses_list': courses_list})
 
 def course(request, id):
     course = get_object_or_404(Course, id=id)
     context = {
         'course': course
     }
-    return render(request, 'course.html', context)
+    return render(request, './courses/course.html', context)
 
 def create_course(request):
     if request.method == 'POST':
@@ -74,7 +74,7 @@ def create_course(request):
     context = {
         'CourseForm': course_form  # Pass the form as 'CourseForm' to match the template
     }
-    return render(request, './create_course.html', context)
+    return render(request, './courses/create_course.html', context)
 
 def update_course(request, id):
     course = get_object_or_404(Course, id=id)
@@ -89,7 +89,7 @@ def update_course(request, id):
         "form": form,
         "update": course
     }
-    return render(request,'./courses/update_course.html', context)
+    return render(request, './courses/update_course.html', context)
 
 def delete_course(request, id):
     delete_entry_course = get_object_or_404(Course, id=id)
@@ -128,7 +128,21 @@ def enroll_student(request):
     context = {
         'enrollment_form': enrollment_form  # The key should match the form variable name in the template
     }
-    return render(request, 'enroll_student.html', context)
+    return render(request, './courses/enroll_student.html', context)
+
+def enroll_lesson(request):
+    if request.method == 'POST':
+        lesson_enrollment_form = AssignLessonToCourseForm(request.POST)
+        if lesson_enrollment_form.is_valid():
+            lesson_enrollment_form.save()
+            return redirect('courses')
+    else:
+        lesson_enrolment_form = AssignLessonToCourseForm()
+
+    context = {
+        'lesson_enrollment_form': lesson_enrolment_form
+    }
+    return render(request, './courses/enroll_lesson.html', context)
 
 
 
