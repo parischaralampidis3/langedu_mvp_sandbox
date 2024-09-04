@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, Course, Enrollment, CourseMaterial, AssignCourseToCourseMaterial, Lesson
+from .models import Student, Course, Enrollment,AssignLessonToCourse, Lesson
 
 
 class StudentForm(forms.ModelForm):
@@ -28,20 +28,14 @@ class LessonForm(forms.ModelForm):
         model = Lesson
         fields = ['title', 'description', 'is_active']
 
-class CourseMaterialForm(forms.ModelForm):
-
-    class Meta:
-        model = CourseMaterial
-        fields = ['course_material_title', 'course_material_description', 'course_material_isActive',
-                  "course_material_difficulty", "course_material_category"]
 
 class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
         fields = ['student', 'course']
 
-class AssignCourseToCourseMaterialForm(forms.ModelForm):
+class AssignLessonToCourseForm(forms.ModelForm):
 
     class Meta:
-        model = AssignCourseToCourseMaterial
-        fields = ['course', 'courseMaterial']
+        model = AssignLessonToCourse
+        fields = ['lesson', 'course']
