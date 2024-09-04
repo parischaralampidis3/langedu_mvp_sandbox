@@ -19,7 +19,6 @@ def student(request, id):
     }
     return render(request, './students/student.html', context)
 
-
 def create_student(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)
@@ -31,11 +30,8 @@ def create_student(request):
 
     return render(request, './students/create_student.html', {'form': form})
 
-
-
 def update_student(request, id):
     student = get_object_or_404(Student, id=id)
-
     if request.method == 'POST':
         form = StudentForm(request.POST, instance=student)
         if form.is_valid():
@@ -43,10 +39,11 @@ def update_student(request, id):
             return redirect('students')
     else:
         form = StudentForm(instance=student)
-
-    context = {"form": form, "update": student}
+    context = {
+        "form": form,
+        "update": student
+    }
     return render(request, './students/update_student.html', context)
-
 
 def delete_student(request, id):
     delete_entry = get_object_or_404(Student, id=id)
@@ -74,11 +71,32 @@ def create_course(request):
             return redirect('courses')  # Redirect to the courses list page after successful form submission
     else:
         course_form = CourseForm()
-
     context = {
         'CourseForm': course_form  # Pass the form as 'CourseForm' to match the template
     }
     return render(request, './create_course.html', context)
+
+def update_course(request, id):
+    course = get_object_or_404(Course, id=id)
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect("courses")
+    else:
+        form = CourseForm(instance=course)
+    context = {
+        "form": form,
+        "update": course
+    }
+    return render(request,'./courses/update_course.html', context)
+
+def delete_course(request, id):
+    delete_entry_course = get_object_or_404(Course, id=id)
+    if request.method == 'POST':
+        delete_entry_course.delete()
+        return redirect('courses')
+    return HttpResponseNotAllowed(['POST'])
 
 def lessons(request):
     lesson_list = Lesson.objects.all()
