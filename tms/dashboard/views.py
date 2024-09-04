@@ -57,9 +57,9 @@ def courses(request):
     return render(request, 'courses.html', {'courses_list': courses_list})
 
 def course(request, id):
-    show_course = Course.objects.get(id=id)
+    course = get_object_or_404(Course, id=id)
     context = {
-        'course.html': show_course
+        'course': course
     }
     return render(request, 'course.html', context)
 
