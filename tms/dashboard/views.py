@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
-from .form import StudentForm, CourseForm, EnrollmentForm
-from .models import Student, Course, Enrollment
+from .form import StudentForm, CourseForm, EnrollmentForm,LessonForm
+from .models import Student, Course, Enrollment, Lesson
 
 def home(request):
     return render(request, 'index.html')
@@ -79,6 +79,24 @@ def create_course(request):
         'CourseForm': course_form  # Pass the form as 'CourseForm' to match the template
     }
     return render(request, './create_course.html', context)
+
+def lessons(request):
+    lesson_list = Lesson.objects.all()
+    return render(request, 'lessons/lessons.html', {'lesson_list': lesson_list})
+
+def create_lesson(request):
+    if request.method == 'POST':
+        lesson_form = LessonForm(request.POST)
+        if lesson_form.is_valid():
+            lesson_form.save()
+            return redirect('lessons')  # Redirect to the lessons list page after successful submission
+    else:
+        lesson_form = LessonForm()  # Initialize an empty form for GET requests
+
+    context = {
+        'LessonForm': lesson_form  # Pass the form to the template context
+    }
+    return render(request, 'lessons/create_lesson.html', context)
 
 def enroll_student(request):
     if request.method == 'POST':

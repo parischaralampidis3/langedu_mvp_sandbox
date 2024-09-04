@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, Course, Enrollment, CourseMaterial, AssignCourseToCourseMaterial
+from .models import Student, Course, Enrollment, CourseMaterial, AssignCourseToCourseMaterial, Lesson
 
 
 class StudentForm(forms.ModelForm):
@@ -22,6 +22,11 @@ class CourseForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input border pt-5 rounded', 'placeholder': 'Title'})
         }
+
+class LessonForm(forms.ModelForm):
+    class Meta:
+        model = Lesson
+        fields = ['title', 'description', 'is_active']
 
 class CourseMaterialForm(forms.ModelForm):
 

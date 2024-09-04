@@ -40,12 +40,25 @@ class Student(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-
     class Meta:
         ordering = ['email']
 
     def __str__(self):
         return self.email
+
+class Lesson(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
+
 
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
