@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm
-from .models import Student, Course, Enrollment, Lesson
+from .models import Student, Course, Enrollment, Lesson, AssignLessonToCourse
 
 def home(request):
     return render(request, 'index.html')
@@ -57,9 +57,11 @@ def courses(request):
     return render(request, './courses/courses.html', {'courses_list': courses_list})
 
 def course(request, id):
-    course = get_object_or_404(Course, id=id)
+    show_course = get_object_or_404(Course, id=id)
+    lesson_enrollments = AssignLessonToCourse.objects.filter(course=show_course)
     context = {
-        'course': course
+        'course': show_course,
+        'lesson_enrollments': lesson_enrollments,
     }
     return render(request, './courses/course.html', context)
 

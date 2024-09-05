@@ -17,6 +17,18 @@
                     <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
                     <p class="text-center">{{course.title}}</p>
                 </div>
+                <div class="text-center">
+                    <br><br><br>
+              {% if lesson_enrollments %}
+                  <ul>
+                      {%for enrollment in lesson_enrollments %}
+                        <li>{{ enrollment.lesson.title }}</li>
+                      {% endfor %}
+                  </ul>
+              {% else %}
+                    <p>No courses enrolled.</p>
+                {% endif %}
+                </div>
             </div>
           </div>
 
