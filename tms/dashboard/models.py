@@ -42,9 +42,36 @@ class Lesson(models.Model):
 
     class Meta:
         ordering = ['title']
-
     def __str__(self):
         return self.title
+
+class QuestionContainer(models.Model):
+    title = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    class Meta:
+        ordering = ['title']
+    def __str__(self):
+        return self.title
+
+class TextQuestionContainer(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(default='Default description')
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    class Meta:
+        ordering = ['title']
+    def __str__(self):
+        return self.title
+
+class TextQuestion(models.Model):
+    title = models.CharField(max_length=255)
+    number_id = models.IntegerField()
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -54,6 +81,7 @@ class Enrollment(models.Model):
     def __str__(self):
         return f'{self.student.username} enrolled in {self.course.title}'
 
+
 class AssignLessonToCourse(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -61,3 +89,4 @@ class AssignLessonToCourse(models.Model):
 
     def __str__(self):
         return f'{self.lesson.title} assigned to {self.course.title}'
+

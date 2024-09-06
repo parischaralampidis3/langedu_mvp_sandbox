@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm
-from .models import Student, Course, Enrollment, Lesson, AssignLessonToCourse
+from .models import Student, Course, Enrollment, Lesson, QuestionContainer, AssignLessonToCourse
 
 def home(request):
     return render(request, 'index.html')
@@ -117,6 +117,10 @@ def create_lesson(request):
         'LessonForm': lesson_form  # Pass the form to the template context
     }
     return render(request, 'lessons/create_lesson.html', context)
+
+def questions(request):
+    questions_container = QuestionContainer.objects.all()
+    return render(request, './questions/questionsContainer.html', {'questions_list': questions_container})
 
 def enroll_student(request):
     if request.method == 'POST':
