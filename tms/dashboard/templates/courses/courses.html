@@ -87,7 +87,6 @@
                 <a href="{% url 'create_course' %}" target="_blank" class="button">Create Course</a>
                 <a class="second-button button" href = "{% url 'enroll_student'%}" target="_blank" class="button">Enroll User</a>
                 <a class="second-button button" href="{% url 'enroll_lesson'%}" target="_blank" class="button">Enroll Lesson at Course</a>
-                <!--create a link for assign a lesson-->
             </div>
                 <br><br><br>
             {% for course in courses_list %}
@@ -98,7 +97,7 @@
                     </div>
 
                 <div style="margin-top:30px;"class="flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5">
-                    <form action="{% url 'delete_course' course.id%}" method="'post" style="display:inline">
+                    <form action="{% url 'delete_course' course.id%}" method="post" style="display:inline">
                         {% csrf_token %}
                         <input id="delete" type="submit" value="Delete" class="cursor-pointer bg-none border-none p-0" />
                     </form>

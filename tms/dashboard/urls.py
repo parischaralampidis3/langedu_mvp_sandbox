@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import home, students, student, create_student, update_student, enroll_student, delete_student, courses, \
-    course, create_course, update_course, delete_course,  lessons, create_lesson, enroll_lesson
+from .views import home, students, student, create_student, update_student, enroll_student, delete_student, courses, course, \
+    create_course, update_course, delete_course, lessons, create_lesson, enroll_lesson
 urlpatterns = [
     path('', home, name='home'),
     path('students/', students, name='students'),  # List of students
