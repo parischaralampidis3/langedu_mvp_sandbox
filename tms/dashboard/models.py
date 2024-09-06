@@ -57,10 +57,11 @@ class QuestionContainer(models.Model):
 
 class TextQuestionContainer(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField(default='Default description')
+    description = models.TextField()
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    question_container = models.ForeignKey(QuestionContainer, on_delete=models.CASCADE)
     class Meta:
         ordering = ['title']
     def __str__(self):
@@ -72,6 +73,7 @@ class TextQuestion(models.Model):
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    text_question_container = models.ForeignKey(TextQuestionContainer, on_delete=models.CASCADE)
 
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
