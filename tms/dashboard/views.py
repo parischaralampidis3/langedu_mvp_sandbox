@@ -120,7 +120,7 @@ def create_lesson(request):
 
 def questions(request):
     questions_container = QuestionContainer.objects.all()
-    return render(request, './questions/questionsContainer.html', {'questions_list': questions_container})
+    return render(request, './questions/questionsContainer.html', {'questions_container': questions_container})
 
 def create_question_container(request):
     if request.method == 'POST':

@@ -31,7 +31,7 @@ class LessonForm(forms.ModelForm):
 class QuestionContainerForm(forms.ModelForm):
     class Meta:
         model = QuestionContainer
-        fields = ['title']
+        fields = ['title','description']
 
 class EnrollmentForm(forms.ModelForm):
     class Meta:

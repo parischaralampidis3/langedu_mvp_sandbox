@@ -17,39 +17,38 @@
             color: #fff;
             font-weight: 700;
         }
-        .flex-buttons{
-        display:flex;
-        flex-direction:row;
-
+        .flex-buttons {
+            display: flex;
+            flex-direction: row;
         }
-        #delete:hover{
-        cursor:pointer;
+        #delete:hover {
+            cursor: pointer;
         }
-        #border{
-        width:500px;
-        border:1px solid #ddd;
+        #border {
+            width: 500px;
+            border: 1px solid #ddd;
         }
-         #delete{
-         color:tomato;
-         font-weight:700;
-         }
-         #update{
-         color:blue;
-         font-weight:700;
-         }
-         #show{
-          color:green;
-         font-weight:700;
-         }
-             @media only screen and (max-width: 800px) {
-        .flex-buttons{
-        display:flex;
-        flex-direction:column;
-         align-items:center;
+        #delete {
+            color: tomato;
+            font-weight: 700;
         }
-        .second-button{
-        margin-top:20px;
+        #update {
+            color: blue;
+            font-weight: 700;
         }
+        #show {
+            color: green;
+            font-weight: 700;
+        }
+        @media only screen and (max-width: 800px) {
+            .flex-buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .second-button {
+                margin-top: 20px;
+            }
             .button {
                 width: 200px;
                 margin-left: 15%;
@@ -59,13 +58,11 @@
                 color: #fff;
                 font-weight: 700;
             }
-              #border{
-        width:350px;
-        border:1px solid #ddd;
-
+            #border {
+                width: 350px;
+                border: 1px solid #ddd;
+            }
         }
-        }
-
         @media only screen and (max-width: 2187px) {
             .button {
                 width: 200px;
@@ -82,9 +79,17 @@
 <body class="h-full">
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
-        <div class="" style="margin-top:50px">
+        <div style="margin-top:50px">
+            <a href="{% url 'create_question_container' %}" target="_blank" class="button">Create a question section</a>
+            <br><br><br>
+            <h1 style="font-size:20px; font-weight:bold;" class="text-center">Question Sections</h1>
+            <div  id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
 
-
+            {% for container in questions_container %}
+                 <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
+                <p class="text-center">{{ container.title }}</p>
+            {% endfor %}
+            </div>
 
         </div>
     </div>

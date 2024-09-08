@@ -56,6 +56,14 @@
                     {{ create_question_container_form.title.errors }}
                 </div>
 
+                       <div class="input">
+                    <label for="{{ create_question_container_form.title.id_for_label }}">
+                        <span style="color:#c24b38;">*</span>Title:
+                    </label>
+                    {{ create_question_container_form.description }}
+                    {{ create_question_container_form.description.errors }}
+                </div>
+
                 {% include 'partials/submit_button.html' %}
                 <p class="warning">
                     The fields that are marked with (*) are required

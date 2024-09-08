@@ -47,6 +47,7 @@ class Lesson(models.Model):
 
 class QuestionContainer(models.Model):
     title = models.CharField(max_length=255)
+    description = models.TextField(default='Default description')
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -57,7 +58,7 @@ class QuestionContainer(models.Model):
 
 class TextQuestionContainer(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(default='Default description')
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
