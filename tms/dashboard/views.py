@@ -124,18 +124,18 @@ def questions(request):
 
 def create_question_container(request):
     if request.method == 'POST':
-        create_question_container_form = QuestionContainer(request.POST)
-        if QuestionContainerForm.is_valid():
+        create_question_container_form = QuestionContainerForm(request.POST)
+        if create_question_container_form.is_valid():
             create_question_container_form.save()
             return redirect('questions')
     else:
         create_question_container_form = QuestionContainerForm()
 
     context = {
-        'create_question_container_form' : create_question_container_form
+        'create_question_container_form': create_question_container_form
     }
 
-    return render(request,'questions/create_question_container', context)
+    return render(request, 'questions/create_question_container.html', context)
 
 
 def enroll_student(request):
