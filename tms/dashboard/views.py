@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
-from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm
-from .models import Student, Course, Enrollment, Lesson, QuestionContainer, AssignLessonToCourse
+from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, AssignQuestionContainerToLessonForm
+from .models import Student, Course, Enrollment, Lesson, QuestionContainer, AssignLessonToCourse, AssignQuestionContainerToLesson
 
 def home(request):
     return render(request, 'index.html')
@@ -104,6 +104,15 @@ def lessons(request):
     lesson_list = Lesson.objects.all()
     return render(request, 'lessons/lessons.html', {'lesson_list': lesson_list})
 
+def lesson(request, id):
+    show_lesson = get_object_or_404(Lesson, id=id)
+    enrollments = AssignQuestionContainerToLesson.objects.filter(lesson=show_lesson)
+    context = {
+        'lesson': show_lesson,
+        'enrollments': enrollments
+    }
+    return render(request, 'lessons/lesson.html', context)
+
 def create_lesson(request):
     if request.method == 'POST':
         lesson_form = LessonForm(request.POST)
@@ -159,13 +168,25 @@ def enroll_lesson(request):
             lesson_enrollment_form.save()
             return redirect('courses')
     else:
-        lesson_enrolment_form = AssignLessonToCourseForm()
+        lesson_enrollment_form = AssignLessonToCourseForm()
 
     context = {
-        'lesson_enrollment_form': lesson_enrolment_form
+        'lesson_enrollment_form': lesson_enrollment_form
     }
     return render(request, './courses/enroll_lesson.html', context)
 
+def enroll_question_to_lesson(request):
+    if request.method == 'POST':
+        question_to_lesson_enrollment_form = AssignQuestionContainerToLessonForm(request.POST)
+        if question_to_lesson_enrollment_form.is_valid():
+            question_to_lesson_enrollment_form.save()
+            return redirect('lessons')
+    else:
+        question_to_lesson_enrollment_form = AssignQuestionContainerToLessonForm()
 
+    context = {
+        'question_to_lesson_enrollment_form': question_to_lesson_enrollment_form
+    }
+    return render(request, './lessons/enroll_question_to_lesson.html', context)
 
 

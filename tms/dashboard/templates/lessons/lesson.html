@@ -1,0 +1,42 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html class="h-full bg-gray-100" lang="en">
+<head>
+    <title>Django Tailwind</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+</head>
+<body class="h-full">
+    <div class="min-h-full">
+        {% include 'views/navigation.html' %}
+          <div class="" style="margin-top:50px">
+            <div id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
+                <div>
+                    <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
+                  <p class="text-center">{{lesson.title}}</p>
+                  <br>
+                  <p class="text-center"><span class="font-bold">Description: </span>{{lesson.description}}</p>
+                </div>
+                <div class="text-center">
+                    <br><br><br>
+                  <h1 style="font-size:20px;" class="font-bold text-center">Question Section:</h1>
+                  <br><br>
+              {% if enrollments %}
+                  <ul>
+                      {%for enrollment in enrollments %}
+                    <li><span class="font-bold">Name:</span> {{ enrollment.question_container.title }}</li>
+                      {% endfor %}
+                  </ul>
+              {% else %}
+                    <p>No courses enrolled.</p>
+                {% endif %}
+                </div>
+            </div>
+          </div>
+
+    </div>
+    {% include 'views/footer.html' %}
+</body>
+</html>

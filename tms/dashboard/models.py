@@ -93,3 +93,11 @@ class AssignLessonToCourse(models.Model):
     def __str__(self):
         return f'{self.lesson.title} assigned to {self.course.title}'
 
+class AssignQuestionContainerToLesson(models.Model):
+    question_container = models.ForeignKey(QuestionContainer, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    assignment_date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.question_container.title} assigned to {self.lesson.title}'
+
