@@ -127,6 +127,28 @@ def create_lesson(request):
     }
     return render(request, 'lessons/create_lesson.html', context)
 
+def update_lesson(request,id):
+    lesson = get_object_or_404(Lesson, id=id)
+    if request.method == 'POST':
+        update_lesson_form = LessonForm(request.POST, instance=lesson)
+        if update_lesson_form.is_valid():
+            update_lesson_form.save()
+            return redirect('lessons')
+    else:
+        update_lesson_form = LessonForm(instance=lesson)
+    context = {
+        'update_lesson_form': update_lesson_form,
+        'update': lesson
+    }
+    return render(request, './lessons/update_lesson.html', context )
+
+def delete_lesson(request, id):
+    lesson = get_object_or_404(Lesson, id=id)
+    if request.method == 'POST':
+        lesson.delete()
+        return redirect('lessons')
+    return HttpResponseNotAllowed(['POST'])
+
 def questions(request):
     questions_container = QuestionContainer.objects.all()
     return render(request, './questions/questionsContainer.html', {'questions_container': questions_container})
