@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
-from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, AssignQuestionContainerToLessonForm
-from .models import Student, Course, Enrollment, Lesson, QuestionContainer, AssignLessonToCourse, AssignQuestionContainerToLesson
+from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
+    TextQuestionContainerForm,AssignQuestionContainerToLessonForm
+from .models import Student, Course, Enrollment, Lesson, QuestionContainer, AssignLessonToCourse,TextQuestionContainer \
+    ,AssignQuestionContainerToLesson
 
 def home(request):
     return render(request, 'index.html')
@@ -153,6 +155,22 @@ def questions(request):
     questions_container = QuestionContainer.objects.all()
     return render(request, './questions/questionsContainer.html', {'questions_container': questions_container})
 
+def create_text_question_container(request):
+    if request.method == 'POST':
+        create_text_question_container_form = TextQuestionContainerForm(request.POST)
+        if create_text_question_container_form.is_valid():
+            create_text_question_container_form.save()
+            return redirect('questions')  # Redirect to the questions list page after successful form submission
+    else:
+        create_text_question_container_form = TextQuestionContainerForm()
+
+    # Ensure that we return a response in all cases
+    context = {
+        'create_text_question_container_form': create_text_question_container_form
+    }
+    return render(request, 'questions/create_text_question_container.html', context)
+
+
 def create_question_container(request):
     if request.method == 'POST':
         create_question_container_form = QuestionContainerForm(request.POST)
@@ -168,6 +186,27 @@ def create_question_container(request):
 
     return render(request, 'questions/create_question_container.html', context)
 
+def update_question_container(request, id):
+    update = get_object_or_404(QuestionContainer, id=id)
+    if request.method == 'POST':
+        update_question_container_form = QuestionContainerForm(request.POST, instance=update)
+        if update_question_container_form.is_valid():
+            update_question_container_form.save()
+            return redirect('questions')
+    else:
+        update_question_container_form = QuestionContainerForm(instance=update)
+    context = {
+        'update_question_container_form': update_question_container_form,
+        'update': update
+    }
+    return render(request, './questions/update_question_container.html', context)
+
+def delete_question_container(request, id):
+    delete_question = get_object_or_404(QuestionContainer, id=id)
+    if request.method == 'POST':
+        delete_question.delete()
+        return redirect('questions')
+    return HttpResponseNotAllowed(['POST'])
 
 def enroll_student(request):
     if request.method == 'POST':

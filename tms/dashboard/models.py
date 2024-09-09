@@ -62,9 +62,17 @@ class TextQuestionContainer(models.Model):
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    question_container = models.ForeignKey(QuestionContainer, on_delete=models.CASCADE)
+    # Allow null values and set on_delete behavior
+    question_container = models.ForeignKey(
+        QuestionContainer,
+        on_delete=models.SET_NULL,
+        null=True,  # Allow NULL values in this field
+        blank=True  # Optional: Allows this field to be blank in forms
+    )
+
     class Meta:
         ordering = ['title']
+
     def __str__(self):
         return self.title
 

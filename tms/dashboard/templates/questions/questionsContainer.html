@@ -80,17 +80,24 @@
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
         <div style="margin-top:50px">
-            <a href="{% url 'create_question_container' %}" target="_blank" class="button">Create a question section</a>
+            <a href="{% url 'create_question_container' %}" target="_blank" class="button">Create a general section</a>
+                <a href="{% url 'create_text_question_container' %}" target="_blank" class="button">Create a text question section</a>
             <br><br><br>
             <h1 style="font-size:20px; font-weight:bold;" class="text-center">Question Sections</h1>
-            <div  id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
-
-            {% for container in questions_container %}
-                 <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
-                <p class="text-center">{{ container.title }}</p>
-            {% endfor %}
+            <div id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
+                {% for container in questions_container %}
+                    <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
+                    <p class="text-center">{{ container.title }}</p>
+                    <div style="margin-top:30px;" class="flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5">
+                        <form action="{% url 'delete_question_container' container.id %}" method="post">
+                            {% csrf_token %}
+                            <input id="delete" type="submit" value="Delete" class="text-green-600 hover:text-green-800 cursor-pointer"/>
+                        </form>
+                        <span style="margin-left:10px;margin-right:10px;">|</span>
+                        <a id="update" href="{% url 'update_question_container' container.id %}" class="text-blue-600 hover:text-blue-800 cursor-pointer" target="_blank">Update</a>
+                    </div>
+                {% endfor %}
             </div>
-
         </div>
     </div>
     {% include 'views/footer.html' %}
