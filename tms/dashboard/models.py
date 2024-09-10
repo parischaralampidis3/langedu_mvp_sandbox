@@ -86,13 +86,32 @@ class TextQuestion(models.Model):
 
 class Answer(models.Model):
     answer_number_id = models.IntegerField()
-    answer_input = models.CharField(max_length=255)
+    answer_input = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     text_question = models.OneToOneField(TextQuestion, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.answer_input
+
+class Exercise(models.Model):
+    title = models.CharField(max_length=255)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    is_submitted = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+class ExerciseQuestionsAnswer(models.Model):
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    textQuestion = models.OneToOneField('TextQuestion', on_delete=models.CASCADE, related_name='questions')
+    answer = models.OneToOneField('Answer', on_delete=models.CASCADE,null=True, blank=True)
+
+    def __str__(self):
+        return f"Question '{self.textQuestion.title}' in {self.exercise.title}  "
+
+
 
 
 class Enrollment(models.Model):
