@@ -1,6 +1,6 @@
 from django import forms
 from .models import Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,\
-    AssignQuestionContainerToLesson
+    AssignQuestionContainerToLesson, TextQuestion
 
 
 class StudentForm(forms.ModelForm):
@@ -38,6 +38,11 @@ class TextQuestionContainerForm(forms.ModelForm):
     class Meta:
         model = TextQuestionContainer
         fields = ['title', 'description', 'is_active', 'question_container']
+
+class TextQuestionForm(forms.ModelForm):
+    class Meta:
+        model = TextQuestion
+        fields = ['title', 'is_active', 'question_number_id', 'text_question_container']
 class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
