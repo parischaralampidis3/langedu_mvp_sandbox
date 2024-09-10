@@ -42,7 +42,7 @@ class TextQuestionContainerForm(forms.ModelForm):
 class TextQuestionForm(forms.ModelForm):
     class Meta:
         model = TextQuestion
-        fields = ['title', 'is_active', 'question_number_id', 'text_question_container']
+        fields = ['question_number_id', 'title', 'is_active', 'text_question_container']
 class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
@@ -57,4 +57,16 @@ class AssignQuestionContainerToLessonForm(forms.ModelForm):
     class Meta:
         model = AssignQuestionContainerToLesson
         fields = ['question_container', 'lesson']
+
+
+class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
+    text_question_container = forms.ModelChoiceField(
+        queryset=TextQuestionContainer.objects.all(),
+        label='Text Question Container'
+    )
+    text_questions = forms.ModelMultipleChoiceField(
+        queryset=TextQuestion.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label='Text Questions'
+    )
 

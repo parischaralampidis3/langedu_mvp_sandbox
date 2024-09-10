@@ -74,13 +74,15 @@ class TextQuestionContainer(models.Model):
         return self.title
 
 class TextQuestion(models.Model):
-    title = models.CharField(max_length=255)
     question_number_id = models.IntegerField()
+    title = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    text_question_container = models.ForeignKey(TextQuestionContainer, on_delete=models.CASCADE)
+    text_question_container = models.ForeignKey(TextQuestionContainer,on_delete=models.SET_NULL, null=True, blank=True)
 
+    def __str__(self):
+        return self.title
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

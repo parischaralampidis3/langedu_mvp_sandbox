@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
-    TextQuestionContainerForm,AssignQuestionContainerToLessonForm
-from .models import Student, Course, Enrollment, Lesson, QuestionContainer, AssignLessonToCourse,TextQuestionContainer \
-    ,AssignQuestionContainerToLesson
+    TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm
+
+from .models import Student, Course, Enrollment, Lesson, QuestionContainer, AssignLessonToCourse,TextQuestionContainer,AssignQuestionContainerToLesson
 
 def home(request):
     return render(request, 'index.html')
@@ -186,6 +186,21 @@ def create_question_container(request):
 
     return render(request, 'questions/create_question_container.html', context)
 
+
+def create_text_question(request):
+    if request.method == 'POST':  # Corrected line
+        create_text_question_form = TextQuestionForm(request.POST)
+        if create_text_question_form.is_valid():
+            create_text_question_form.save()
+            return redirect('create_text_question')
+    else:
+        create_text_question_form = TextQuestionForm()
+    context = {
+        'create_text_question_form': create_text_question_form
+    }
+    return render(request, 'questions/create_text_question.html', context)
+
+
 def update_question_container(request, id):
     update = get_object_or_404(QuestionContainer, id=id)
     if request.method == 'POST':
@@ -251,3 +266,21 @@ def enroll_question_to_lesson(request):
     return render(request, './lessons/enroll_question_to_lesson.html', context)
 
 
+def assign_text_questions_to_text_container(request):
+    if request.method == "POST":
+        text_question_to_container_form = AssignTextQuestionsToTextQuestionContainerForm(request.POST)
+        if text_question_to_container_form.is_valid():
+            container = text_question_to_container_form.cleaned_data['text_question_container']
+            selected_questions = text_question_to_container_form.cleaned_data['text_questions']
+
+            for question in selected_questions:
+                question.text_question_container = container
+                question.save()
+
+            return redirect('create_text_question')
+    else:
+        text_question_to_container_form = AssignTextQuestionsToTextQuestionContainerForm()
+    context = {
+        'text_question_to_container_form':text_question_to_container_form
+    }
+    return render(request, './questions/assign_text_questions_to_text_container.html', context)
