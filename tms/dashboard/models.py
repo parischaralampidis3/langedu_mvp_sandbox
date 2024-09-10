@@ -83,6 +83,18 @@ class TextQuestion(models.Model):
 
     def __str__(self):
         return self.title
+
+class Answer(models.Model):
+    answer_number_id = models.IntegerField()
+    answer_input = models.CharField(max_length=255)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    text_question = models.OneToOneField(TextQuestion, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.answer_input
+
+
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
