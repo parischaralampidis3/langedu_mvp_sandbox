@@ -112,8 +112,6 @@ class ExerciseQuestionsAnswer(models.Model):
         return f"Question '{self.textQuestion.title}' in {self.exercise.title}  "
 
 
-
-
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

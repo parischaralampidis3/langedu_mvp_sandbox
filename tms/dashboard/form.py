@@ -1,7 +1,6 @@
 from django import forms
 from .models import Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,\
-    AssignQuestionContainerToLesson, TextQuestion
-
+    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -15,6 +14,7 @@ class StudentForm(forms.ModelForm):
                                           'type': 'date'}),
             'email': forms.EmailInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Email'}),
         }
+
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
@@ -43,6 +43,7 @@ class TextQuestionForm(forms.ModelForm):
     class Meta:
         model = TextQuestion
         fields = ['question_number_id', 'title', 'is_active', 'text_question_container']
+
 class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
@@ -58,7 +59,6 @@ class AssignQuestionContainerToLessonForm(forms.ModelForm):
         model = AssignQuestionContainerToLesson
         fields = ['question_container', 'lesson']
 
-
 class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
     text_question_container = forms.ModelChoiceField(
         queryset=TextQuestionContainer.objects.all(),
@@ -69,4 +69,9 @@ class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         label='Text Questions'
     )
+
+class ExersiceForm(forms.Form):
+    class Meta:
+        model = ExerciseQuestionsAnswer
+        fields = ['exercise', 'textQuestion', 'answer']
 
