@@ -3,7 +3,6 @@ class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(default='Default description')
     is_active = models.BooleanField(default=True)
-    is_enabled = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -20,7 +19,6 @@ class Student(models.Model):
     email = models.EmailField(max_length=50)
     dob = models.DateField()
     is_active = models.BooleanField(default=True)
-    is_enabled = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -135,4 +133,3 @@ class AssignQuestionContainerToLesson(models.Model):
 
     def __str__(self):
         return f'{self.question_container.title} assigned to {self.lesson.title}'
-

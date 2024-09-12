@@ -1,8 +1,9 @@
 from django.urls import path
 from .views import home, students, student, create_student, update_student, enroll_student, delete_student, courses, \
     course, create_course, update_course, delete_course, lessons, lesson, create_lesson, update_lesson, delete_lesson, \
-    enroll_lesson, questions, create_question_container, update_question_container,create_text_question_container, create_text_question,\
-    enroll_question_to_lesson, delete_question_container, assign_text_questions_to_text_container
+    enroll_lesson, questions, create_question_container, update_question_container, create_text_question_container, \
+    exercises, create_exercise_container, create_text_question,enroll_question_to_lesson, delete_question_container, \
+    assign_text_questions_to_text_container
 urlpatterns = [
     path('', home, name='home'),
     path('students/', students, name='students'),  # List of students
@@ -23,6 +24,8 @@ urlpatterns = [
     path('enroll_student/', enroll_student, name='enroll_student'),
     path('enroll_lesson/', enroll_lesson, name='enroll_lesson'),
     path('enroll_question_to_lesson/', enroll_question_to_lesson, name='enroll_question_to_lesson'),
+    path('exercises/', exercises, name='exercises'),
+    path('create_exercise_container/', create_exercise_container, name='create_exercise_container'),
     path('questions/', questions, name='questions'),
     path('create_question_container/', create_question_container, name='create_question_container'),
     path('create_text_question_container/', create_text_question_container, name='create_text_question_container'),

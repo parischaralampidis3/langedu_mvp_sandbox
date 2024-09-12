@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
-    TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm
+    TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm, \
+    ExerciseForm
 
-from .models import Student, Course, Enrollment, Lesson, QuestionContainer, AssignLessonToCourse,TextQuestionContainer,AssignQuestionContainerToLesson
+from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
+    TextQuestionContainer,AssignQuestionContainerToLesson
 
 def home(request):
     return render(request, 'index.html')
@@ -223,6 +225,23 @@ def delete_question_container(request, id):
         return redirect('questions')
     return HttpResponseNotAllowed(['POST'])
 
+def exercises(request):
+    exercises = Exercise.objects.all()
+    return render(request, './exercises/exercises.html', {'exercises': exercises})
+
+def create_exercise_container(request):
+    if request.method == 'POST':
+        create_exercise_container_form = ExerciseForm(request.POST)
+        if create_exercise_container_form.is_valid():
+            create_exercise_container_form.save()
+            return redirect('exercises')
+    else:
+        create_exercise_container_form = ExerciseForm()
+    context = {
+            'create_exercise_container_form': create_exercise_container_form
+    }
+    return render(request, 'exercises/create_exercise_container.html', context)
+
 def enroll_student(request):
     if request.method == 'POST':
         enrollment_form = EnrollmentForm(request.POST)
@@ -284,3 +303,4 @@ def assign_text_questions_to_text_container(request):
         'text_question_to_container_form':text_question_to_container_form
     }
     return render(request, './questions/assign_text_questions_to_text_container.html', context)
+

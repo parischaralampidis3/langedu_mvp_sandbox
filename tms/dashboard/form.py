@@ -1,6 +1,6 @@
 from django import forms
 from .models import Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,\
-    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer
+    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -44,10 +44,20 @@ class TextQuestionForm(forms.ModelForm):
         model = TextQuestion
         fields = ['question_number_id', 'title', 'is_active', 'text_question_container']
 
+class ExersiceQuestionsAnswerForm(forms.ModelForm):
+    class Meta:
+        model = ExerciseQuestionsAnswer
+        fields = ['exercise', 'textQuestion', 'answer']
+
 class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
         fields = ['student', 'course']
+
+class ExerciseForm(forms.ModelForm):
+    class Meta:
+        model = Exercise
+        fields = ['title', 'is_submitted']
 
 class AssignLessonToCourseForm(forms.ModelForm):
     class Meta:
@@ -70,8 +80,25 @@ class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
         label='Text Questions'
     )
 
-class ExersiceForm(forms.Form):
-    class Meta:
-        model = ExerciseQuestionsAnswer
-        fields = ['exercise', 'textQuestion', 'answer']
+class AssignTextQuestionsToExerciseForm(forms.Form):
+    exercise = forms.ModelChoiceField(
+        queryset=Exercise.objects.all(),
+        label='Exercise'
+    )
+    text_questions = forms.ModelMultipleChoiceField(
+        queryset=TextQuestion.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label='Text Questions'
+    )
+    def save(self):
+        if not self.is_valid():
+            raise ValueError('Form is not valid')
+        exercise = self.cleaned_data['exercise']
+        text_questions = self.cleaned_data['text_questions']
 
+        for question in text_questions:
+            ExerciseQuestionsAnswer.objects.create(
+                exercise=exercise,
+                textQuestion=question,
+                answer=None
+            )
