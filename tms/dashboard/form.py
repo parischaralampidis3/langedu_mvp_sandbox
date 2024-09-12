@@ -80,6 +80,8 @@ class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
         label='Text Questions'
     )
 
+#create a form that a student can answer using input predefined questions of the teacher
+class fillAnswersToTextQuestions(forms.Form):
 
 class AssignTextQuestionsToExerciseForm(forms.Form):
     exercise = forms.ModelChoiceField(
