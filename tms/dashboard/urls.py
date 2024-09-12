@@ -3,7 +3,7 @@ from .views import home, students, student, create_student, update_student, enro
     course, create_course, update_course, delete_course, lessons, lesson, create_lesson, update_lesson, delete_lesson, \
     enroll_lesson, questions, create_question_container, update_question_container, create_text_question_container, \
     exercises, create_exercise_container, create_text_question,enroll_question_to_lesson, delete_question_container, \
-    assign_text_questions_to_text_container
+    assign_text_questions_to_text_container,assign_text_questions_to_exercise_form
 urlpatterns = [
     path('', home, name='home'),
     path('students/', students, name='students'),  # List of students
@@ -33,6 +33,7 @@ urlpatterns = [
     path('delete_question_container/<int:id>', delete_question_container, name='delete_question_container'),
     path('create_text_question', create_text_question, name='create_text_question'),
     path('assign_text_questions_to_text_container', assign_text_questions_to_text_container,
-         name='assign_text_questions_to_text_container')
+         name='assign_text_questions_to_text_container'),
+    path('assign_text_questions_to_exercise_form', assign_text_questions_to_exercise_form, name='assign_text_questions_to_exercise_form')
 ]
 

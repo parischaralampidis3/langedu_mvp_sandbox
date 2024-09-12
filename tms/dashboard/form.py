@@ -80,6 +80,7 @@ class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
         label='Text Questions'
     )
 
+
 class AssignTextQuestionsToExerciseForm(forms.Form):
     exercise = forms.ModelChoiceField(
         queryset=Exercise.objects.all(),
@@ -90,15 +91,20 @@ class AssignTextQuestionsToExerciseForm(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         label='Text Questions'
     )
+
     def save(self):
         if not self.is_valid():
             raise ValueError('Form is not valid')
+
+        # Extract cleaned data
         exercise = self.cleaned_data['exercise']
         text_questions = self.cleaned_data['text_questions']
 
+        # Save the relationship
         for question in text_questions:
+            # Assuming ExerciseQuestionsAnswer is the model used to relate exercises and questions
             ExerciseQuestionsAnswer.objects.create(
                 exercise=exercise,
                 textQuestion=question,
-                answer=None
+                answer=None  # Set answer to None or any default value
             )

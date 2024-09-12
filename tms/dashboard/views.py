@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
     TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm, \
-    ExerciseForm
+    ExerciseForm,AssignTextQuestionsToExerciseForm
 
 from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
     TextQuestionContainer,AssignQuestionContainerToLesson
@@ -284,7 +284,6 @@ def enroll_question_to_lesson(request):
     }
     return render(request, './lessons/enroll_question_to_lesson.html', context)
 
-
 def assign_text_questions_to_text_container(request):
     if request.method == "POST":
         text_question_to_container_form = AssignTextQuestionsToTextQuestionContainerForm(request.POST)
@@ -300,7 +299,25 @@ def assign_text_questions_to_text_container(request):
     else:
         text_question_to_container_form = AssignTextQuestionsToTextQuestionContainerForm()
     context = {
-        'text_question_to_container_form':text_question_to_container_form
+        'text_question_to_container_form': text_question_to_container_form
     }
     return render(request, './questions/assign_text_questions_to_text_container.html', context)
+
+def assign_text_questions_to_exercise_form(request):
+    if request.method == "POST":
+        assign_form = AssignTextQuestionsToExerciseForm(request.POST)
+        if assign_form.is_valid():
+            # Use the form's custom save method to handle the saving logic
+            assign_form.save()
+            return redirect('create_exercise_container')  # Redirect after saving successfully
+    else:
+        assign_form = AssignTextQuestionsToExerciseForm()  # Initialize the form for GET requests
+
+    # Render the template with the context
+    context = {
+        'assign_text_questions_to_exercise_form': assign_form
+    }
+    return render(request, 'exercises/assign_exercise.html', context)
+
+
 
