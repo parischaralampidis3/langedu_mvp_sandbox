@@ -1,7 +1,10 @@
 from django import forms
-from .models import Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,\
+from .models import (
+    Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,
     AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise
+)
 
+# Form for Student model
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
@@ -10,65 +13,74 @@ class StudentForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'form-input border pt-5 rounded', 'placeholder': 'First Name'}),
             'last_name': forms.TextInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Last Name'}),
             'username': forms.TextInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Username'}),
-            'dob': forms.DateInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Date of Birth',
-                                          'type': 'date'}),
+            'dob': forms.DateInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Date of Birth', 'type': 'date'}),
             'email': forms.EmailInput(attrs={'class': 'form-input border rounded', 'placeholder': 'Email'}),
         }
 
+# Form for Course model
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        # add a description string at fields array
         fields = ['title']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input border pt-5 rounded', 'placeholder': 'Title'})
         }
 
+# Form for Lesson model
 class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = ['title', 'description', 'is_active']
 
+# Form for QuestionContainer model
 class QuestionContainerForm(forms.ModelForm):
     class Meta:
         model = QuestionContainer
         fields = ['title', 'description']
 
+# Form for TextQuestionContainer model
 class TextQuestionContainerForm(forms.ModelForm):
     class Meta:
         model = TextQuestionContainer
         fields = ['title', 'description', 'is_active', 'question_container']
 
+# Form for TextQuestion model
 class TextQuestionForm(forms.ModelForm):
     class Meta:
         model = TextQuestion
         fields = ['question_number_id', 'title', 'is_active', 'text_question_container']
 
-class ExersiceQuestionsAnswerForm(forms.ModelForm):
+# Form for ExerciseQuestionsAnswer model
+class ExerciseQuestionsAnswerForm(forms.ModelForm):
     class Meta:
         model = ExerciseQuestionsAnswer
         fields = ['exercise', 'textQuestion', 'answer']
 
+# Form for Enrollment model
 class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
         fields = ['student', 'course']
 
+# Form for Exercise model
 class ExerciseForm(forms.ModelForm):
     class Meta:
         model = Exercise
         fields = ['title', 'is_submitted']
 
+# Form for AssignLessonToCourse model
 class AssignLessonToCourseForm(forms.ModelForm):
     class Meta:
         model = AssignLessonToCourse
         fields = ['lesson', 'course']
 
+# Form for AssignQuestionContainerToLesson model
 class AssignQuestionContainerToLessonForm(forms.ModelForm):
     class Meta:
         model = AssignQuestionContainerToLesson
         fields = ['question_container', 'lesson']
 
+# Form for AssignTextQuestionsToTextQuestionContainer
 class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
     text_question_container = forms.ModelChoiceField(
         queryset=TextQuestionContainer.objects.all(),
@@ -80,9 +92,7 @@ class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
         label='Text Questions'
     )
 
-#create a form that a student can answer using input predefined questions of the teacher
-class fillAnswersToTextQuestions(forms.Form):
-
+# Form for AssignTextQuestionsToExercise
 class AssignTextQuestionsToExerciseForm(forms.Form):
     exercise = forms.ModelChoiceField(
         queryset=Exercise.objects.all(),
@@ -104,9 +114,26 @@ class AssignTextQuestionsToExerciseForm(forms.Form):
 
         # Save the relationship
         for question in text_questions:
-            # Assuming ExerciseQuestionsAnswer is the model used to relate exercises and questions
             ExerciseQuestionsAnswer.objects.create(
                 exercise=exercise,
                 textQuestion=question,
                 answer=None  # Set answer to None or any default value
             )
+
+# Form for answering Exercise Questions
+class ExerciseAnswerForm(forms.ModelForm):
+    class Meta:
+        model = ExerciseQuestionsAnswer
+        fields = ['answer']
+        widgets = {
+            'answer': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+# Formset for managing multiple answers to Exercise Questions
+ExerciseAnswerFormSet = forms.modelformset_factory(
+    ExerciseQuestionsAnswer,
+    form=ExerciseAnswerForm,
+    extra=0
+)
+
+

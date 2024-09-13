@@ -3,9 +3,9 @@ from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
     TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm, \
     ExerciseForm,AssignTextQuestionsToExerciseForm
-
+from .form import ExerciseAnswerFormSet
 from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
-    TextQuestionContainer,AssignQuestionContainerToLesson
+    TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer
 
 def home(request):
     return render(request, 'index.html')
@@ -321,3 +321,25 @@ def assign_text_questions_to_exercise_form(request):
 
 
 
+def answer_exercise_question(request, exercise_id):
+    exercise = get_object_or_404(Exercise, id=exercise_id)
+    questions = exercise.questions.all()
+
+    if request.method == 'POST':
+        formset=ExerciseAnswerFormSet(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                if form.cleaned_data:
+                    answer_instance = form.save(commit=False)
+                    answer_instance.user = request.user
+                    answer_instance.save()
+            return redirect('exercises')
+        else:
+            formset = ExerciseAnswerFormSet(queryset=ExerciseQuestionsAnswer.objects.none())
+        context = {
+            'exercise': exercise,
+            'questions': questions,
+            'formset': formset
+        }
+
+        return render(request, 'exercises/answer_exercise.html', context)
