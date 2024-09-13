@@ -1,51 +1,61 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html class="h-full bg-gray-100" lang="en">
-   <head>
-      <title>Django Tailwind</title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      {% tailwind_css %}
-   </head>
-   <style>
-      .form_block{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      margin-top:10vh;
-      }
-      .sub-section{
-      margin-top:40px;
-      border:1px solid #ddd;
-      padding:30px;
-      }
-      .input{
-      margin-top:30px;
-      }
-      .warning{
-      color:tomato;
-      margin-top:30px;
-      }
-      .header{
-      font-weight:600;
-      font-size:18px;
-      }
-   </style>
-   <body class="h-full">
-      <div class="min-h-full">
-      {% include 'views/navigation.html' %}
-      <header class="bg-white shadow">
-         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Enroll a question_section at a lesson </h1>
-         </div>
-      </header>
-      <main>
+<head>
+    <title>Django Tailwind</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+</head>
+<style>
+    .form_block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10vh;
+    }
+    .sub-section {
+        margin-top: 40px;
+        border: 1px solid #ddd;
+        padding: 30px;
+    }
+    .input {
+        margin-top: 30px;
+    }
+    .warning {
+        color: tomato;
+        margin-top: 30px;
+    }
+    .header {
+        font-weight: 600;
+        font-size: 18px;
+    }
+</style>
+<body class="h-full">
+    <div class="min-h-full">
+    {% include 'views/navigation.html' %}
+    <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Answer the exercise questions</h1>
+        </div>
+    </header>
+    <main>
+        <form method="post">
+            {% csrf_token %}
 
-
-
-      </main>
-      </div>
-      {% include 'views/footer.html' %}
-   </body>
+                {% for form, question in forms_with_questions %}
+                    <div class="form-group">
+                        <label for="{{ form.answer.id_for_label }}">
+                            {{ question.textQuestion.title }}  <!-- Display the question title -->
+                        </label>
+                        {{ form.answer }}  <!-- Render the input field for the answer -->
+                    </div>
+                {% endfor %}
+            <button type="submit" class="btn btn-primary">Submit answer</button>
+        </form>
+    </main>
+    </div>
+    {% include 'views/footer.html' %}
+</body>
 </html>

@@ -5,7 +5,7 @@ from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLes
     ExerciseForm,AssignTextQuestionsToExerciseForm
 from .form import ExerciseAnswerFormSet
 from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
-    TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer
+    TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer,TextQuestion
 
 def home(request):
     return render(request, 'index.html')
@@ -323,23 +323,22 @@ def assign_text_questions_to_exercise_form(request):
 
 def answer_exercise_question(request, exercise_id):
     exercise = get_object_or_404(Exercise, id=exercise_id)
-    questions = exercise.questions.all()
+    questions = ExerciseQuestionsAnswer.objects.filter(exercise=exercise)  # Get related exercise questions
 
     if request.method == 'POST':
-        formset=ExerciseAnswerFormSet(request.POST)
+        formset = ExerciseAnswerFormSet(request.POST, queryset=questions)
         if formset.is_valid():
-            for form in formset:
-                if form.cleaned_data:
-                    answer_instance = form.save(commit=False)
-                    answer_instance.user = request.user
-                    answer_instance.save()
+            formset.save()
             return redirect('exercises')
-        else:
-            formset = ExerciseAnswerFormSet(queryset=ExerciseQuestionsAnswer.objects.none())
-        context = {
-            'exercise': exercise,
-            'questions': questions,
-            'formset': formset
-        }
+    else:
+        formset = ExerciseAnswerFormSet(queryset=questions)  # Populate formset with existing exercise questions
 
-        return render(request, 'exercises/answer_exercise.html', context)
+    # Pair forms with their corresponding questions
+    forms_with_questions = zip(formset.forms, questions)
+
+    context = {
+        'exercise': exercise,
+        'forms_with_questions': forms_with_questions,  # Pass the paired forms and questions
+    }
+
+    return render(request, './exercises/answer_exercise.html', context)

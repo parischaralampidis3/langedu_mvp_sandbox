@@ -107,11 +107,11 @@ class ExerciseQuestion(models.Model):
 
 class ExerciseQuestionsAnswer(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    textQuestion = models.OneToOneField('TextQuestion', on_delete=models.CASCADE, related_name='questions')
-    answer = models.OneToOneField('Answer', on_delete=models.CASCADE,null=True, blank=True)
+    textQuestion = models.ForeignKey('TextQuestion', on_delete=models.CASCADE, related_name='exercise_questions')
+    answer = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f"Question '{self.textQuestion.title}' in {self.exercise.title}  "
+        return f"Question '{self.textQuestion.title}' in {self.exercise.title}"
 
 
 class Enrollment(models.Model):

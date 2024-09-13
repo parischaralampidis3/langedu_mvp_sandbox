@@ -1,8 +1,10 @@
 from django import forms
+from django.forms import modelformset_factory
 from .models import (
     Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,
     AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise
 )
+
 
 # Form for Student model
 class StudentForm(forms.ModelForm):
@@ -121,19 +123,14 @@ class AssignTextQuestionsToExerciseForm(forms.Form):
             )
 
 # Form for answering Exercise Questions
-class ExerciseAnswerForm(forms.ModelForm):
-    class Meta:
-        model = ExerciseQuestionsAnswer
-        fields = ['answer']
-        widgets = {
-            'answer': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+        class ExerciseAnswerForm(forms.ModelForm):
+            class Meta:
+                model = ExerciseQuestionsAnswer
+                fields = ['answer']
+                widgets = {
+                    'answer': forms.Textarea(
+                        attrs={'class': 'form-control', 'placeholder': 'Enter your answer here', 'rows': 3}),
+                }
 
 # Formset for managing multiple answers to Exercise Questions
-ExerciseAnswerFormSet = forms.modelformset_factory(
-    ExerciseQuestionsAnswer,
-    form=ExerciseAnswerForm,
-    extra=0
-)
-
-
+ExerciseAnswerFormSet = modelformset_factory(ExerciseQuestionsAnswer, fields=('answer',), extra=1)
