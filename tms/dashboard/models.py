@@ -137,3 +137,4 @@ class AssignQuestionContainerToLesson(models.Model):
 
     def __str__(self):
         return f'{self.question_container.title} assigned to {self.lesson.title}'
+

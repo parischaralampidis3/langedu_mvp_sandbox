@@ -120,17 +120,33 @@ class AssignTextQuestionsToExerciseForm(forms.Form):
                 exercise=exercise,
                 textQuestion=question,
                 answer=None  # Set answer to None or any default value
-            )
+        )
+
+
+#Select an exercise from a dropdown
+"""
+This class initiate a form field,
+which will generate a dropdown
+in order select a model instance from a query of model objects.
+This functionality generates a dropdown of exercises to select 
+"""
+class SelectExerciseForm(forms.Form):
+     exercise = forms.ModelChoiceField(
+            queryset=Exercise.objects.all(),
+            label='Exercise'
+     )
+
+
 
 # Form for answering Exercise Questions
-        class ExerciseAnswerForm(forms.ModelForm):
-            class Meta:
-                model = ExerciseQuestionsAnswer
-                fields = ['answer']
-                widgets = {
-                    'answer': forms.Textarea(
-                        attrs={'class': 'form-control', 'placeholder': 'Enter your answer here', 'rows': 3}),
-                }
+class ExerciseAnswerForm(forms.ModelForm):
+        class Meta:
+            model = ExerciseQuestionsAnswer
+            fields = ['answer']
+            widgets = {
+                'answer': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Enter your answer here', 'rows': 3}),
+            }
 
 # Formset for managing multiple answers to Exercise Questions
 ExerciseAnswerFormSet = modelformset_factory(ExerciseQuestionsAnswer, fields=('answer',), extra=1)
