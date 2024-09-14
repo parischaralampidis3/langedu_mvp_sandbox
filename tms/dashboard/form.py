@@ -137,7 +137,6 @@ class SelectExerciseForm(forms.Form):
      )
 
 
-
 # Form for answering Exercise Questions
 class ExerciseAnswerForm(forms.ModelForm):
         class Meta:

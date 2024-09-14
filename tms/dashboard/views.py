@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
     TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm, \
-    ExerciseForm,AssignTextQuestionsToExerciseForm
+    ExerciseForm,AssignTextQuestionsToExerciseForm,SelectExerciseForm
 from .form import ExerciseAnswerFormSet
 from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
     TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer,TextQuestion
@@ -320,7 +320,6 @@ def assign_text_questions_to_exercise_form(request):
     return render(request, 'exercises/assign_exercise.html', context)
 
 
-
 def answer_exercise_question(request, exercise_id):
     exercise = get_object_or_404(Exercise, id=exercise_id)
     questions = ExerciseQuestionsAnswer.objects.filter(exercise=exercise)  # Get related exercise questions
@@ -342,3 +341,22 @@ def answer_exercise_question(request, exercise_id):
     }
 
     return render(request, './exercises/answer_exercise.html', context)
+
+
+"""
+This function establishes the functionality,of select an exercise.
+When the exercise form is initiated, and the user selects
+an exercise. If its valid the user get's redirected at the question's form. 
+"""
+def select_exercise(request):
+    if request.method == 'POST':
+        selectExerciseForm = SelectExerciseForm(request.POST)
+        if selectExerciseForm.is_valid():
+            exercise = selectExerciseForm.cleaned_data['exercise']
+            return redirect('answer_exercise_question', exercise_id=exercise.id)
+    else:
+        form = SelectExerciseForm()
+    return render(request,'select_exercise.html', {'form': form})
+
+
+
