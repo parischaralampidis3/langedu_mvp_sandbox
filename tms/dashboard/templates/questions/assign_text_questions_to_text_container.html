@@ -1,0 +1,157 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html class="h-full bg-gray-100" lang="en">
+<head>
+    <title>Django Tailwind</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+    <style>
+    .flex{
+    display:flex;
+    flex-direction:row;
+    }
+                  .header{
+      font-weight:600;
+      font-size:18px;
+      }
+         .input{
+      margin-top:30px;
+      }
+        .button {
+            width: 200px;
+            margin-left: 0%;
+            background-color: #5997de;
+            padding: 6px;
+            text-align: center;
+            color: #fff;
+            font-weight: 700;
+        }
+        .flex-buttons {
+            display: flex;
+            flex-direction: row;
+        }
+        #delete:hover {
+            cursor: pointer;
+        }
+        #border {
+            width: 500px;
+            border: 1px solid #ddd;
+        }
+        #delete {
+            color: tomato;
+            font-weight: 700;
+        }
+        #update {
+            color: blue;
+            font-weight: 700;
+        }
+        #show {
+            color: green;
+            font-weight: 700;
+        }
+             .sub-section{
+      margin-top:40px;
+      border:1px solid #ddd;
+      padding:30px;
+      }
+        @media only screen and (max-width: 800px) {
+          .flex{
+    display:flex;
+    flex-direction:column;
+    }
+            .flex-buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .second-button {
+                margin-top: 20px;
+            }
+            .button {
+                width: 200px;
+                margin-left: 15%;
+                background-color: #5997de;
+                padding: 10px;
+                text-align: center;
+                color: #fff;
+                font-weight: 700;
+            }
+            #border {
+                width: 350px;
+                border: 1px solid #ddd;
+            }
+
+        }
+        @media only screen and (max-width: 2187px) {
+            .button {
+                width: 200px;
+                margin-left: 15%;
+                background-color: #5997de;
+                padding: 10px;
+                text-align: center;
+                color: #fff;
+                font-weight: 700;
+            }
+        }
+    </style>
+</head>
+<body class="h-full">
+    <div class="min-h-full">
+        {% include 'views/navigation.html' %}
+        <div style="margin-top:0px">
+             <header class="bg-white shadow">
+         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Assign Text Questions to a Container</h1>
+         </div>
+      </header>
+             <div style="display:flex;justify-content:center;align-items:center;margin-top:10vh;" class="container">
+
+<form method="post">
+    {% csrf_token %}
+        <div>
+            <p class="font-bold header">Please fill the form fields.</p>
+        </div>
+
+    <!-- Text Question Container Field -->
+    <div class="flex">
+    <div class="form-group sub-section">
+        <div class="input">
+        <label for="id_text_question_container">Select Text Question Container:</label>
+        {{ text_question_to_container_form.text_question_container }}
+        <!-- Display errors for the field -->
+        {% if text_question_to_container_form.text_question_container.errors %}
+            <div class="error">
+                {{ text_question_to_container_form.text_question_container.errors }}
+            </div>
+        {% endif %}
+        </div>
+    </div>
+
+    <!-- Text Questions Field -->
+    <div class="form-group sub-section">
+        <div class="input">
+        <label for="id_text_questions">Select Text Questions:</label>
+        {{ text_question_to_container_form.text_questions }}
+        <!-- Display errors for the field -->
+        {% if text_question_to_container_form.text_questions.errors %}
+            <div class="error">
+                {{ text_question_to_container_form.text_questions.errors }}
+            </div>
+        {% endif %}
+    </div>
+    </div>
+    </div>
+
+    <!-- Submit Button -->
+ {% include 'partials/submit_button.html' %}
+</form>
+             </div>
+
+
+        </div>
+    </div>
+    {% include 'views/footer.html' %}
+</body>
+</html>

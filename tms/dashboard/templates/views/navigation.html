@@ -14,7 +14,10 @@
                <div class="ml-10  items-center  space-x-4">
                   <a href="{% url 'home' %}" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-bold text-white" aria-current="page">Home</a>
                   <a href="{% url 'students' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Students</a>
+                  <a href="{% url 'lessons' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Lessons</a>
                   <a href="{% url 'courses' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Courses</a>
+                  <a href="{% url 'questions' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Questions</a>
+                   <a href="{% url 'exercises' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Exercises</a>
                </div>
             </div>
          </div>
@@ -37,11 +40,20 @@
    </div>
    <!-- Mobile menu, show/hide based on menu state. -->
    <div id="mobileBorder" class="md:hidden h-max">
-      <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+      <div class="space-y-0 px-2 pb-3 pt-0 sm:px-3">
          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+<<<<<<< HEAD
          <a href="{% url 'home' %}" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Home</a>
          <a href="{% url 'students' %}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Students</a>
          <a href="{% url 'courses' %}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Courses</a>
+=======
+         <a href="{% url 'home' %}" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Home</a><br>
+         <a href="{% url 'students' %}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Students</a><br>
+         <a href="{% url 'lessons' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Lessons</a><br><br>
+          <a href="{% url 'courses' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Courses</a><br><br>
+         <a href="{% url 'questions' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Questions</a><br><br>
+         <a href="{% url 'exercises' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Exercises</a><br>
+>>>>>>> course
 
       </div>
       <div class="border-t border-gray-700 pb-3 pt-4">
