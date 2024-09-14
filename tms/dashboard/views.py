@@ -1,28 +1,15 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotAllowed
-<<<<<<< HEAD
-
-
 from django.shortcuts import render, redirect
 from rest_framework import generics
 from .serializers  import StudentSerializer
-from .form import StudentForm
-from .models import Student
-
-from .form import StudentForm,CourseForm
-from .models import Student, Course
-
-from .form import StudentForm, CourseForm, EnrollmentForm
-from .models import Student, Course, Enrollment
-=======
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
     TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm, \
     ExerciseForm,AssignTextQuestionsToExerciseForm,SelectExerciseForm
 from .form import ExerciseAnswerFormSet
 from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
     TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer,TextQuestion
->>>>>>> course
 
 
 class StudentListView(generics.ListCreateAPIView):

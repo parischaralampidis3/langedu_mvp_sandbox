@@ -1,17 +1,13 @@
 
 from django.urls import path
-<<<<<<< HEAD
 
 
-from .views import home, courses, course, create_course, students, student, create_student, update_student, delete_student, enroll_student
-
-=======
 from .views import home, students, student, create_student, update_student, enroll_student, delete_student, courses, \
     course, create_course, update_course, delete_course, lessons, lesson, create_lesson, update_lesson, delete_lesson, \
     enroll_lesson, questions, create_question_container, update_question_container, create_text_question_container, \
     exercises, create_exercise_container, create_text_question,enroll_question_to_lesson, delete_question_container, \
     assign_text_questions_to_text_container,assign_text_questions_to_exercise_form, answer_exercise_question,select_exercise
->>>>>>> course
+
 urlpatterns = [
     path('', home, name='home'),
     path('students/', students, name='students'),
@@ -30,9 +26,6 @@ urlpatterns = [
     path('update_lesson/<int:id>/', update_lesson, name='update_lesson'),
     path('delete_lesson/<int:id>/', delete_lesson, name='delete_lesson'),
     path('enroll_student/', enroll_student, name='enroll_student'),
-<<<<<<< HEAD
-
-=======
     path('enroll_lesson/', enroll_lesson, name='enroll_lesson'),
     path('enroll_question_to_lesson/', enroll_question_to_lesson, name='enroll_question_to_lesson'),
     path('exercises/', exercises, name='exercises'),
@@ -48,6 +41,6 @@ urlpatterns = [
     path('assign_text_questions_to_exercise_form', assign_text_questions_to_exercise_form, name='assign_text_questions_to_exercise_form'),
     path('answer_exercise_question/<int:exercise_id>/answer/', answer_exercise_question, name='answer_exercise_question'),
     path('select_exercise', select_exercise, name='select_exercise')
->>>>>>> course
+
 ]
 

@@ -33,7 +33,6 @@ class Student(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=50)
     is_active = models.BooleanField(default=True)
-    is_enabled = models.BooleanField(default = True)
     username = models.CharField(max_length=100)
     dob = models.DateField()
     is_active = models.BooleanField(default=True)
