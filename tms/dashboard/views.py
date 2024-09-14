@@ -356,7 +356,7 @@ def select_exercise(request):
             return redirect('answer_exercise_question', exercise_id=exercise.id)
     else:
         selectExerciseForm = SelectExerciseForm()
-    return render(request,'select_exercise.html', {'selectExerciseForm': selectExerciseForm})
+    return render(request,'exercises/select_exercise.html', {'selectExerciseForm': selectExerciseForm})
 
 
 

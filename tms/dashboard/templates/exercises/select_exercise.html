@@ -50,14 +50,17 @@
     <main>
         <form method="post">
             {% csrf_token %}
-
-                {% for exercise in select_exercise_form %}
                     <div class="form-group">
-                        <label for="{{ SelectExerciseForm.id_for_label }}">
-                            {{ exercise.SelectExerciseForm.title }}  <!-- Display the question title -->
+                        <label for="{{ selectExerciseForm.exercise.id_for_label }}">
+                            {{selectExerciseForm.exercise.label}}
                         </label>
+                        {{selectExerciseForm.exercise}}
+                             <div class="text-red-500">
+                            {{ selectExerciseForm.exercise.errors }}
+                        </div>
+
                     </div>
-                {% endfor %}
+
             <button type="submit" class="btn btn-primary">Redirect to the question form</button>
         </form>
     </main>

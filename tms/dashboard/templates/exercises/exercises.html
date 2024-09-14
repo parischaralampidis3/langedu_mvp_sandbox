@@ -86,6 +86,9 @@
             <div class="flex-buttons">
                 <a href="{% url 'create_exercise_container' %}" target="_blank" class="button">Create Exercise</a>
             </div>
+              <div class="flex-buttons">
+                <a href="{% url 'select_exercise' %}" target="_blank" class="button">Select Exercise</a>
+            </div>
                 <br><br><br>
              {% for exercise in exercises %}
                 <div  id="border" class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
