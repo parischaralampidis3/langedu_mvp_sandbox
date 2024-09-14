@@ -355,8 +355,8 @@ def select_exercise(request):
             exercise = selectExerciseForm.cleaned_data['exercise']
             return redirect('answer_exercise_question', exercise_id=exercise.id)
     else:
-        form = SelectExerciseForm()
-    return render(request,'select_exercise.html', {'form': form})
+        selectExerciseForm = SelectExerciseForm()
+    return render(request,'select_exercise.html', {'selectExerciseForm': selectExerciseForm})
 
 
 
