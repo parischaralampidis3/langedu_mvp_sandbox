@@ -8,111 +8,150 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% tailwind_css %}
     <style>
+
+        .sidebarContainer {
+            background-color: #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 20%;
+            height: 100vh;
+            padding: 20px;
+           box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+            -webkit-box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+            -moz-box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+        }
+        .two{
+            margin-top:0px;
+        }
+
+        .flexButtonsContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: stretch;
+            width: 100%;
+        }
+
         .button {
-            width: 200px;
-            margin-left: 0%;
+            width: 100%;
             background-color: #5997de;
-            padding: 6px;
+            padding: 10px;
             text-align: center;
             color: #fff;
             font-weight: 700;
         }
-        .flex-buttons{
-        display:flex;
-        flex-direction:row;
 
+        #border {
+            margin-left: 200px;
+            margin-top:50px;
+            width: 500px;
+            border: 1px solid #ddd;
         }
-        #delete:hover{
-        cursor:pointer;
+
+        #delete {
+            color: tomato;
+            font-weight: 700;
         }
-        #border{
-        width:500px;
-        border:1px solid #ddd;
+
+        #update {
+            color: blue;
+            font-weight: 700;
         }
-         #delete{
-         color:tomato;
-         font-weight:700;
-         }
-         #update{
-         color:blue;
-         font-weight:700;
-         }
-         #show{
-          color:green;
-         font-weight:700;
-         }
-             @media only screen and (max-width: 800px) {
-        .flex-buttons{
-        display:flex;
-        flex-direction:column;
-         align-items:center;
+
+        #show {
+            color: green;
+            font-weight: 700;
         }
-        .second-button{
-        margin-top:20px;
-        }
-            .button {
-                width: 200px;
-                margin-left: 15%;
-                background-color: #5997de;
+
+        @media only screen and (max-width: 1024px) {
+            .sidebarContainer {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                justify-content: space-around;
                 padding: 10px;
-                text-align: center;
-                color: #fff;
-                font-weight: 700;
+                margin-bottom: 20px;
             }
-              #border{
-        width:350px;
-        border:1px solid #ddd;
 
-        }
-        }
+            .flexButtonsContainer {
+                flex-direction: column;
+                align-items: center;
+            }
 
-        @media only screen and (max-width: 2187px) {
             .button {
-                width: 200px;
-                margin-left: 15%;
-                background-color: #5997de;
-                padding: 10px;
-                text-align: center;
-                color: #fff;
-                font-weight: 700;
+                width: 80%;
+
+            }
+
+            #border {
+                width: 90%;
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .sidebarContainer {
+                flex-direction: row ;
+                align-items: center;
+                padding:30px;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            #border {
+                width: 100%;
+                padding:30px;
+                margin-left: 0;
+                margin-right: 0;
             }
         }
     </style>
 </head>
 <body class="h-full">
+
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
-        <div class="" style="margin-top:50px">
-            <div class="flex-buttons">
-                <a href="{% url 'create_exercise_container' %}" target="_blank" class="button">Create Exercise</a>
+        <div class="flexButtonsContainer">
+            <!-- Sidebar -->
+            <div class="sidebarContainer">
+                <div class="flex-buttons one">
+                    <a href="{% url 'create_exercise_container' %}" target="_blank" class="button">Create Exercise</a>
+                </div>
+                <div class="flex-buttons two">
+                    <a href="{% url 'select_exercise' %}" target="_blank" class="button">Select Exercise</a>
+                </div>
             </div>
-              <div class="flex-buttons">
-                <a href="{% url 'select_exercise' %}" target="_blank" class="button">Select Exercise</a>
-            </div>
-                <br><br><br>
-             {% for exercise in exercises %}
-                <div  id="border" class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
-                     <div>
-                        <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
+
+            <!-- Main Content -->
+            <div class="flex-1 mt-12">
+                {% for exercise in exercises %}
+                <div  id="border" class=exerciseContainer mx-auto mt-5 mb-5 p-4 border-b border-gray-200">
+                    <div>
+                        <h3 class="text-center text-lg font-bold text-tomato-500">Title:</h3>
                         <p class="text-center">{{ exercise.title}}</p>
                     </div>
+                    <div class="mt-6 flex justify-center space-x-5">
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <input id="delete" type="submit" value="Delete" class="cursor-pointer bg-none border-none p-0" />
+                        </form>
 
-                <div style="margin-top:30px;"class="flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5">
-                    <form action="#" method="post" style="display:inline">
-                        {% csrf_token %}
-                        <input id="delete" type="submit" value="Delete" class="cursor-pointer bg-none border-none p-0" />
-                    </form>
-                    <span style="margin-left:10px;margin-right:10px;">|</span>
-                        <a id="update" href="#" class="text-blue-600 hover:text-blue-800 cursor-pointer" target="_blank">Update</a>
-                    </span>
-                    <span style="margin-left:10px;margin-right:10px;">|</span>
-                     <a id="show" href="#" class="text-green-600 hover:text-green-800 cursor-pointer" target="_blank">Show</a>
+                        <span style="margin-right:10px; margin-left:10px;">|</span>
+
+                        <a id="update" href="#" class="text-blue-600 hover:text-blue-800 cursor-pointer">Update</a>
+                        <span style="margin-right:10px; margin-left:10px;">|</span>
+
+                        <a id="show" href="#" class="text-green-600 hover:text-green-800 cursor-pointer">Show</a>
                     </div>
                 </div>
-            {% endfor%}
-
+                {% endfor %}
+            </div>
         </div>
     </div>
+
     {% include 'views/footer.html' %}
 </body>
 </html>
