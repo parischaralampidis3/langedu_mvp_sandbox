@@ -49,7 +49,7 @@
     </header>
     <main>
       <div style="display:flex;justify-content:center;align-items:center;margin-top:10vh;" class="container">
-           <form class="form-block" action="{% url 'enroll_lesson' %}" method="post">
+           <form class="form-block" action="{% url 'select_exercise' %}" method="post">
             {% csrf_token %}
                     <div class="form-group">
                         <label for="{{ selectExerciseForm.exercise.id_for_label }}">
@@ -61,10 +61,9 @@
                         </div>
 
                     </div>
-        <div style="margin-top:50px;">
-             {% include 'partials/submit_button.html' %}
-        </div>
-           </form>
+
+            <button type="submit" class="btn btn-primary">Redirect to the question form</button>
+        </form>
       </div>
     </main>
     </div>
