@@ -48,7 +48,8 @@
         </div>
     </header>
     <main>
-        <form method="post">
+      <div style="display:flex;justify-content:center;align-items:center;margin-top:10vh;" class="container">
+           <form class="form-block" action="{% url 'select_exercise' %}" method="post">
             {% csrf_token %}
                     <div class="form-group">
                         <label for="{{ selectExerciseForm.exercise.id_for_label }}">
@@ -63,6 +64,7 @@
 
             <button type="submit" class="btn btn-primary">Redirect to the question form</button>
         </form>
+      </div>
     </main>
     </div>
     {% include 'views/footer.html' %}
