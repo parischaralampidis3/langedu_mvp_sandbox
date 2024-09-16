@@ -5,7 +5,7 @@ urlpatterns = [
     path('courses', courses, name='courses'),
     path('<int:id>/', course, name='course'),
     path('create_course', create_course, name='create_course'),
-    path('<int:id>/', update_course, name='update_course'),
-    path('<int:id>/', delete_course, name='delete_course'),
-    path('enroll_lesson',enroll_lesson, name='enroll_lesson')
+    path('update_course/<int:id>/', update_course, name='update_course'),
+    path('delete_course/<int:id>/', delete_course, name='delete_course'),
+    path('enroll_lesson', enroll_lesson, name='enroll_lesson')
 ]

@@ -9,6 +9,10 @@
       {% tailwind_css %}
    </head>
    <style>
+        .goBackButton{
+      margin-left:150px;
+      margin-top:50px;
+      }
       .form_block{
       display:flex;
       justify-content:center;
@@ -31,6 +35,11 @@
       font-weight:600;
       font-size:18px;
       }
+         @media only screen and (max-width: 600px) {
+      .goBackButton{
+      margin-left:50px;
+      margin-top:50px;
+      }
    </style>
    <body class="h-full">
       <div class="min-h-full">
@@ -40,6 +49,9 @@
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">Enroll a lesson at a course</h1>
          </div>
       </header>
+             <div class="goBackButton">
+                 <a href="{% url 'courses' %}" target="_blank" class="button">Go back at courses</a>
+                </div>
       <main>
          <div style="display:flex;justify-content:center;align-items:center;margin-top:10vh;" class="container">
            <form class="form-block" action="{% url 'enroll_lesson' %}" method="post">

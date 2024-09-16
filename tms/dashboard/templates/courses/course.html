@@ -1,5 +1,25 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
+<style>
+
+        .button {
+            width: 100%;
+            background-color: #5997de;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            font-weight: 700;
+        }
+          .goBackButton{
+      margin-left:150px;
+      margin-top:50px;
+      }
+                @media only screen and (max-width: 600px) {
+             .goBackButton{
+      margin-left:50px;
+      margin-top:50px;
+      }
+</style>
 <html class="h-full bg-gray-100" lang="en">
 <head>
     <title>Django Tailwind</title>
@@ -8,9 +28,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% tailwind_css %}
 </head>
+
 <body class="h-full">
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
+        <div class="goBackButton">
+                 <a href="{% url 'courses' %}" target="_blank" class="button">Go back at courses</a>
+                </div>
           <div class="" style="margin-top:50px">
             <div id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
                 <div>
