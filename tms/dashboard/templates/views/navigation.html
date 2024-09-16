@@ -11,8 +11,9 @@
                <h1 class="text-white text-3xl font-bold">Langedu</h1>
             </div>
             <div class="hidden md:block">
-               <div class="ml-10  items-center  space-x-4">
+               <div class="ml-10 flex  items-center  space-x-4">
                   <a href="{% url 'students' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Students</a>
+                  <a href="{% url 'courses' %}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Courses</a>
 
                </div>
             </div>
@@ -39,6 +40,7 @@
       <div class="space-y-0 px-2 pb-3 pt-0 sm:px-3">
          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
          <a href="{% url 'students' %}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Students</a><br>
+         <a href="{% url 'courses' %}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Courses</a><br>
 
 
       </div>
