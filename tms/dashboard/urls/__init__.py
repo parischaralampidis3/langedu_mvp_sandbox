@@ -6,5 +6,8 @@ urlpatterns = [
     path('', home, name='home'),
     path('students/', include('dashboard.urls.students')),
     path('courses/', include('dashboard.urls.courses')),
-    path('lessons', include('dashboard.urls.lessons'))
+    path('lessons', include('dashboard.urls.lessons')),
+    path('exercises', include('dashboard.urls.exercises')),
+    path('questions', include('dashboard.urls.questions'))
+
 ]
