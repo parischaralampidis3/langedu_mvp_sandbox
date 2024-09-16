@@ -8,73 +8,127 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% tailwind_css %}
     <style>
+        .courseInformationContainer{
+        display:flex;
+        flex-direction:row
+        }
+        .sidebarContainer {
+            background-color: #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 20%;
+            height: 100vh;
+            padding: 20px;
+           box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+            -webkit-box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+            -moz-box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+        }
+        .two{
+            margin-top:0px;
+        }
+
+        .flexButtonsContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: stretch;
+            width: 100%;
+        }
+
         .button {
-            width: 200px;
-            margin-left: 0%;
+            width: 100%;
             background-color: #5997de;
-            padding: 6px;
+            padding: 10px;
             text-align: center;
             color: #fff;
             font-weight: 700;
         }
-        .flex-buttons{
-        display:flex;
-        flex-direction:row;
 
+        #border {
+            margin-left: 200px;
+            margin-top:50px;
+            width: 100%;
+            border: 1px solid #ddd;
         }
-        #delete:hover{
-        cursor:pointer;
+
+        #delete {
+            color: tomato;
+            font-weight: 700;
         }
-        #border{
-        width:500px;
-        border:1px solid #ddd;
+
+        #update {
+            color: blue;
+            font-weight: 700;
         }
-         #delete{
-         color:tomato;
-         font-weight:700;
-         }
-         #update{
-         color:blue;
-         font-weight:700;
-         }
-         #show{
-          color:green;
-         font-weight:700;
-         }
-             @media only screen and (max-width: 800px) {
-        .flex-buttons{
+
+        #show {
+            color: green;
+            font-weight: 700;
+        }
+
+        @media only screen and (max-width: 1024px) {
+            .sidebarContainer {
+                width: 100%;
+                height: auto;
+                flex-direction: column;
+                justify-content: center;
+                align-items:center;
+                padding: 10px;
+                margin-bottom: 20px;
+                   box-shadow: -1px 9px 5px 1px rgba(0,0,0,0.38);
+            -webkit-box-shadow: -1px 9px 5px 1px rgba(0,0,0,0.38);
+            -moz-box-shadow: -1px 9px 5px 1px rgba(0,0,0,0.38);
+            }
+
+     .two{
+            margin-top:30px;
+            }
+            .three{
+            margin-top:30px;
+            }
+            .flexButtonsContainer {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .button {
+                width: 50%;
+
+            }
+
+            #border {
+                width: 90%;
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+             .studentInformationContainer{
         display:flex;
         flex-direction:column;
-         align-items:center;
         }
-        .second-button{
-        margin-top:20px;
-        }
-            .button {
-                width: 200px;
-                margin-left: 15%;
-                background-color: #5997de;
-                padding: 10px;
-                text-align: center;
-                color: #fff;
-                font-weight: 700;
+            .sidebarContainer {
+                flex-direction: column ;
+                align-items: center;
+                padding:30px;
             }
-              #border{
-        width:350px;
-        border:1px solid #ddd;
 
-        }
-        }
-
-        @media only screen and (max-width: 2187px) {
             .button {
-                width: 200px;
-                margin-left: 15%;
-                background-color: #5997de;
-                padding: 10px;
-                text-align: center;
-                color: #fff;
-                font-weight: 700;
+                width: 100%;
+            }
+
+            #border {
+                width: 100%;
+                padding:30px;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .two{
+            margin-top:30px;
+            }
+            .three{
+            margin-top:30px;
             }
         }
     </style>
@@ -82,21 +136,20 @@
 <body class="h-full">
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
-        <div class="" style="margin-top:50px">
-            <div class="flex-buttons">
-                <a href="{% url 'create_course' %}" target="_blank" class="button">Create Course</a>
-                <a class="second-button button" href = "{% url 'enroll_student'%}" target="_blank" class="button">Enroll User</a>
-                <a class="second-button button" href="{% url 'enroll_lesson'%}" target="_blank" class="button">Enroll Lesson at Course</a>
+        <div class="flexButtonsContainer">
+            <div class="sidebarContainer">
+                <a href="{% url 'create_course' %}" target="_blank" class="button one">Create Course</a>
+                <a href = "{% url 'enroll_student'%}" target="_blank" class="button two">Enroll User</a>
+                <a href="{% url 'enroll_lesson'%}" target="_blank" class="button three">Enroll Lesson at Course</a>
             </div>
-                <br><br><br>
-            {% for course in courses_list %}
-                <div  id="border" class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
-                     <div>
-                        <h3 style="font-size:20px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
-                        <p class="text-center">{{ course.title}}</p>
-                    </div>
+            <div style="margin-top:50px;">
 
-                <div style="margin-top:30px;"class="flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5">
+            {% for course in courses_list %}
+                <div  id="border" class="grid grid-cols-2 lg:grid-cols-6 gap-2 items-center justify-center items-center mx-auto mb-5 p-4 border-b border-gray-200">
+                     <div class="courseInformationContainer">
+                        <h3 style="font-size:17px;font-weight:bold;color:tomato;text-align:center;">Title:</h3>
+                        <p class="text-center">{{ course.title}}</p>
+                         <div style="margin-top:0px;"class="flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 ml-4 lg:space-x-5">
                     <form action="{% url 'delete_course' course.id%}" method="post" style="display:inline">
                         {% csrf_token %}
                         <input id="delete" type="submit" value="Delete" class="cursor-pointer bg-none border-none p-0" />
@@ -108,7 +161,11 @@
                      <a id="show" href="{% url 'course' course.id %}" class="text-green-600 hover:text-green-800 cursor-pointer" target="_blank">Show</a>
                     </div>
                 </div>
+                    </div>
+
+
             {% endfor%}
+            </div>
         </div>
     </div>
     {% include 'views/footer.html' %}

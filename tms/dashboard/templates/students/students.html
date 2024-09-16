@@ -124,12 +124,8 @@
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
         <div class="flexButtonsContainer">
-            <!-- Sidebar -->
             <div class="sidebarContainer">
-                <div >
                     <a href="{% url 'create_student' %}" target="_blank" class="button">Create Student</a>
-                </div>
-
             </div>
         <div style="margin-top:50px">
             {% for student in students_list %}
