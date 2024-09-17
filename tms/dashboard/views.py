@@ -173,6 +173,7 @@ def questions(request):
 def create_text_question_container(request):
     if request.method == 'POST':
         create_text_question_container_form = TextQuestionContainerForm(request.POST)
+
         if create_text_question_container_form.is_valid():
             create_text_question_container_form.save()
             return redirect('questions')  # Redirect to the questions list page after successful form submission
@@ -181,7 +182,8 @@ def create_text_question_container(request):
 
     # Ensure that we return a response in all cases
     context = {
-        'create_text_question_container_form': create_text_question_container_form
+        'create_text_question_container_form': create_text_question_container_form,
+        'create_text_question_form': TextQuestionForm()
     }
     return render(request, 'questions/create_text_question_container.html', context)
 

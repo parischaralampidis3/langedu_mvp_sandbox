@@ -9,11 +9,16 @@
     {% tailwind_css %}
 </head>
 <style>
+
+     .goBackButton{
+      margin-left:150px;
+      margin-top:50px;
+      }
     .form_block{
         display:flex;
         justify-content:center;
         align-items:center;
-        margin-top:10vh;
+        margin-top:5vh;
     }
     .sub-section{
         margin-top:40px;
@@ -31,21 +36,29 @@
         font-weight:600;
         font-size:18px;
     }
+      @media only screen and (max-width: 600px) {
+             .goBackButton{
+      margin-left:50px;
+      margin-top:50px;
+      }
 </style>
 <body class="h-full">
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
         <header class="bg-white shadow">
-            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Create a text section container</h1>
-            </div>
-        </header>
 
-        <div class="form_block container">
+        </header>
+         <div class="goBackButton">
+                 <a href="{% url 'questions' %}" target="_blank" class="button">Go back at questions</a>
+         </div>
+
+        <div style="display:flex; flex-direction:column;"class="form_block container">
             <form class="form-block" action="{% url 'create_text_question_container' %}" method="post">
                 {% csrf_token %}
                 <div>
-                    <p class="header">Please fill the form fields.</p>
+                    <h3><span>1.</span>Follow the steps below to create a text exercise.</h3>
+                    <br>
+                    <p>Please fill the form fields.</p>
                 </div>
 
                 <div class="input">
@@ -65,10 +78,14 @@
                 </div>
 
                 {% include 'partials/submit_button.html' %}
-                <p class="warning">
-                    The fields that are marked with (*) are required
-                </p>
+
+                <h3 style="margin-top:30px;" ><span>2.</span>Click the button above to create text questions  </h3>
+
+                {% include 'questions/create_text_question.html' %}
+
+                {% include 'questions/assign_text_questions_to_text_container.html' %}
             </form>
+
         </div>
         {% include 'views/footer.html' %}
     </div>
