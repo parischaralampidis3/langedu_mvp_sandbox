@@ -2,7 +2,7 @@ from django import forms
 from django.forms import modelformset_factory
 from .models import (
     Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,
-    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise
+    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise,MultipleChoiceQuestionContainer
 )
 
 
@@ -39,6 +39,11 @@ class QuestionContainerForm(forms.ModelForm):
     class Meta:
         model = QuestionContainer
         fields = ['title', 'description']
+
+class MultipleQuestionContainerForm(forms.ModelForm):
+    class Meta:
+        model = MultipleChoiceQuestionContainer
+        fields = ['title', 'description', 'is_active', 'question_container']
 
 # Form for TextQuestionContainer model
 class TextQuestionContainerForm(forms.ModelForm):

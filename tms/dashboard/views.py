@@ -6,7 +6,7 @@ from rest_framework import generics
 from .serializers  import StudentSerializer
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
     TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm, \
-    ExerciseForm,AssignTextQuestionsToExerciseForm,SelectExerciseForm
+    ExerciseForm,AssignTextQuestionsToExerciseForm,SelectExerciseForm,MultipleQuestionContainerForm
 from .form import ExerciseAnswerFormSet
 from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
     TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer,TextQuestion
@@ -184,6 +184,23 @@ def create_text_question_container(request):
         'create_text_question_container_form': create_text_question_container_form
     }
     return render(request, 'questions/create_text_question_container.html', context)
+
+"""
+This class initiates a class for multiple choice questions container
+"""
+def create_multiple_question_container(request):
+    if request.method == 'POST':
+        create_multiple_question_container_form = MultipleQuestionContainerForm(request.POST)
+        if create_multiple_question_container_form.is_valid():
+            create_multiple_question_container_form.save()
+            return redirect('questions')
+    else:
+        create_multiple_question_container_form = MultipleQuestionContainerForm()
+
+    context = {
+        'create_multiple_question_container_form': create_multiple_question_container_form
+    }
+    return render(request, 'questions/create_multiple_question_container.html', context)
 
 
 def create_question_container(request):
