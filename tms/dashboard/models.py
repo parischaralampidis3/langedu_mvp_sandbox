@@ -111,9 +111,15 @@ class MultipleChoiceQuestion(models.Model):
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-
+    multiple_choice_container = models.ForeignKey(MultipleChoiceQuestionContainer,on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.title
+
+class MultipleChoiceOption(models.Model):
+    question = models.ForeignKey(MultipleChoiceQuestion, related_name='options', on_delete=models.CASCADE)
+    text = models.CharField(max_length=255)
+    def __str__(self):
+        return f"Option for {self.question.title}: {self.text}"
 
 class Answer(models.Model):
     answer_number_id = models.IntegerField()
@@ -125,11 +131,12 @@ class Answer(models.Model):
         return self.answer_input
 
 class MultipleChoiceAnswer(models.Model):
-    multiple_choice_number_id = models.IntegerField()
-    multiple_choice_input = models.CharField(max_length=100)
+    question = models.ForeignKey(MultipleChoiceQuestion, related_name="answer", on_delete=models.CASCADE)
+    selected_option = models.ForeignKey(MultipleChoiceOption, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    multiple_choice = models. OneToOneField(MultipleChoiceQuestion, on_delete=models.CASCADE)
+    def __str__(self):
+        return f"Answer to {self.question.title}: {self.selected_option.text}"
 
 class Exercise(models.Model):
     title = models.CharField(max_length=255)
@@ -142,13 +149,30 @@ class Exercise(models.Model):
 class ExerciseQuestion(models.Model):
     exercise = models.ForeignKey(Exercise,on_delete=models.CASCADE, related_name='questions')
     text = models.TextField()
+    def __str__(self):
+        return f"Text question '{self.question.title}' in exercise '{self.exercise.title}'"
+
+class ExerciseMultipleChoiceQuestion(models.Model):
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, related_name='multiple_choice_questions')
+    question = models.ForeignKey(MultipleChoiceQuestion, on_delete=models.CASCADE)
+    def __str__(self):
+        return f"MC question '{self.question.title}' in exercise {self.exercise.title}"
+
 
 class ExerciseQuestionsAnswer(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    textQuestion = models.ForeignKey('TextQuestion', on_delete=models.CASCADE, related_name='exercise_questions')
+    textQuestion = models.ForeignKey(TextQuestion, on_delete=models.CASCADE, related_name='exercise_questions')
     answer = models.TextField(null=True, blank=True)
     def __str__(self):
         return f"Question '{self.textQuestion.title}' in {self.exercise.title}"
+
+class ExerciseMultipleQuestionsAnswer(models.Model):
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    question = models.ForeignKey(MultipleChoiceQuestion, on_delete=models.CASCADE, related_name='exercise_question')
+    multipleQuestion = models.ForeignKey(MultipleChoiceQuestion, on_delete=models.CASCADE, related_name='exercise_multiple_question')
+    def __str__(self):
+        return f"Multiple choice question '{self.multipleQuestion.title}' in {self.exercise.title}"
+
 
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
