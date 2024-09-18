@@ -105,21 +105,22 @@ class MultipleChoiceContainer(models.Model):
 This class initiates a model that contains model columns, for a text question
 """
 class TextQuestion(models.Model):
-    question_number_id = models.AutoField()
     title = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    text_question_container = models.ForeignKey(TextQuestionContainer,on_delete=models.SET_NULL, null=True, blank=True)
+    text_question_container = models.ForeignKey(TextQuestionContainer, on_delete=models.SET_NULL, null=True, blank=True)
+
     class Meta:
         ordering = ['title']
+
     def __str__(self):
         return self.title
+
 """
 This class initiates a model that contains model columns for a multiple choice question
 """
 class MultipleChoiceQuestion(models.Model):
-    multiple_choice_number_id = models.AutoField()
     title = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -138,16 +139,18 @@ class MultipleChoiceQuestion(models.Model):
 This class initiates a model that contains model columns for setting choice attributes for the multiple choice model
 """
 class MultipleChoiceOption(models.Model):
-    option_number_id = models.AutoField()
     option = models.CharField(max_length=100)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    multiple_choice_question = models.ForeignKey(MultipleChoiceQuestion,on_delete=models.CASCADE,related_name="multiple_choice_options")
+    multiple_choice_question = models.ForeignKey(MultipleChoiceQuestion, on_delete=models.CASCADE, related_name="multiple_choice_options")
+
     class Meta:
-        unique_together = ('option_number_id', 'multiple_choice_question')
+        # Removed unique_together as it referenced a non-existent field
         ordering = ['option']
+
     def __str__(self):
         return self.option
+
 """
 This class initiates a model that contain model columns for setting answer at corresponding text questions
 """
