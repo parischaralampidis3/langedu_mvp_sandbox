@@ -105,22 +105,21 @@ class MultipleChoiceContainer(models.Model):
 This class initiates a model that contains model columns, for a text question
 """
 class TextQuestion(models.Model):
+    question_number_id = models.IntegerField()
     title = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    text_question_container = models.ForeignKey(TextQuestionContainer, on_delete=models.SET_NULL, null=True, blank=True)
-
+    text_question_container = models.ForeignKey(TextQuestionContainer,on_delete=models.SET_NULL, null=True, blank=True)
     class Meta:
         ordering = ['title']
-
     def __str__(self):
         return self.title
-
 """
 This class initiates a model that contains model columns for a multiple choice question
 """
 class MultipleChoiceQuestion(models.Model):
+    multiple_choice_number_id = models.IntegerField()
     title = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -139,18 +138,16 @@ class MultipleChoiceQuestion(models.Model):
 This class initiates a model that contains model columns for setting choice attributes for the multiple choice model
 """
 class MultipleChoiceOption(models.Model):
+    option_number_id = models.IntegerField()
     option = models.CharField(max_length=100)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    multiple_choice_question = models.ForeignKey(MultipleChoiceQuestion, on_delete=models.CASCADE, related_name="multiple_choice_options")
-
+    multiple_choice_question = models.ForeignKey(MultipleChoiceQuestion,on_delete=models.CASCADE,related_name="multiple_choice_options")
     class Meta:
-        # Removed unique_together as it referenced a non-existent field
+        unique_together = ('option_number_id', 'multiple_choice_question')
         ordering = ['option']
-
     def __str__(self):
         return self.option
-
 """
 This class initiates a model that contain model columns for setting answer at corresponding text questions
 """
@@ -183,11 +180,11 @@ class ExerciseQuestionsAnswer(models.Model):
 
 class ExerciseMutipleQuestionAnswer(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    multiple_question = models.ForeignKey(MultipleChoiceQuestion,on_delete=models.CASCADE)
-    multiple_option = models.ForeignKey(MultipleChoiceOption, on_delete=models.CASCADE)
+    multipleQuestion = models.ForeignKey(MultipleChoiceQuestion,on_delete=models.CASCADE)
+    multipleOptions = models.ForeignKey(MultipleChoiceOption, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Question '{self.multiple_question.title}' in {self.exercise.title}"
+        return f"Question '{self.multipleQuestion.title}' in {self.exercise.title}"
 
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
