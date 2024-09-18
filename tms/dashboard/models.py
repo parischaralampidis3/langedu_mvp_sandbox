@@ -78,7 +78,9 @@ class TextQuestionContainer(models.Model):
         ordering = ['title']
     def __str__(self):
         return self.title
-
+"""
+This class initiates a model that contains model column instances, for a text question
+"""
 class TextQuestion(models.Model):
     question_number_id = models.IntegerField()
     title = models.CharField(max_length=255)
@@ -88,7 +90,12 @@ class TextQuestion(models.Model):
     text_question_container = models.ForeignKey(TextQuestionContainer,on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.title
-
+class MultipleChoiceQuestion(models.Model):
+    multiple_choice_number_id = models.IntegerField()
+    title = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 class Answer(models.Model):
     answer_number_id = models.IntegerField()
     answer_input = models.TextField()
