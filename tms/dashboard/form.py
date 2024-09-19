@@ -2,7 +2,8 @@ from django import forms
 from django.forms import modelformset_factory
 from .models import (
     Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,
-    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise
+    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise, MultipleChoiceContainer, MultipleChoiceQuestion,\
+    MultipleChoiceOption,AssignMultipleChoiceQuestionContainerToLesson,
 )
 
 
@@ -45,12 +46,35 @@ class TextQuestionContainerForm(forms.ModelForm):
     class Meta:
         model = TextQuestionContainer
         fields = ['title', 'description', 'is_active', 'question_container']
-
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Title'}),
+            'description': forms.Textarea(attrs={'class': 'form-input', 'placeholder': 'Description'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-input'}),
+            'question_container': forms.Select(attrs={'class': 'form-input'}),
+        }
 # Form for TextQuestion model
 class TextQuestionForm(forms.ModelForm):
     class Meta:
         model = TextQuestion
-        fields = ['question_number_id', 'title', 'is_active', 'text_question_container']
+        fields = ['title', 'is_active', 'text_question_container']
+
+# Form for MultipleChoiceContainer model
+class MultipleChoiceContainerForm(forms.ModelForm):
+    class Meta:
+        model = MultipleChoiceContainer
+        fields = ['title', 'description', 'is_active', 'question_container']
+
+# Form for MultipleChoiceQuestion
+class MultipleChoiceQuestionForm(forms.ModelForm):
+    class Meta:
+        model = MultipleChoiceQuestion
+        fields = ['multiple_choice_number_id', 'title', 'is_active', 'multiple_choice_container']
+
+# Form for MultipleChoiceOption
+class MultipleChoiceOptionForm(forms.ModelForm):
+    class Meta:
+        model = MultipleChoiceOption
+        fields = ['option_number_id', 'option', 'multiple_choice_question']
 
 # Form for ExerciseQuestionsAnswer model
 class ExerciseQuestionsAnswerForm(forms.ModelForm):
@@ -81,6 +105,13 @@ class AssignQuestionContainerToLessonForm(forms.ModelForm):
     class Meta:
         model = AssignQuestionContainerToLesson
         fields = ['question_container', 'lesson']
+
+# Form for AssignMultipleChoiceQuestionContainerToLessonForm
+
+class AssignMultipleChoiceQuestionContainerToLessonForm(forms.ModelForm):
+    class Meta:
+        model = AssignMultipleChoiceQuestionContainerToLesson
+        fields = ['multiple_choice_container', 'lesson']
 
 # Form for AssignTextQuestionsToTextQuestionContainer
 class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):

@@ -74,7 +74,7 @@ class TextQuestionContainer(models.Model):
         QuestionContainer,
         on_delete=models.SET_NULL,
         null=True,  # Allow NULL values in this field
-        blank=True  # Optional: Allows this field to be blank in forms
+        blank=True  # Optional: Allows this field to be blank in form
     )
     class Meta:
         ordering = ['title']
@@ -105,7 +105,7 @@ class MultipleChoiceContainer(models.Model):
 This class initiates a model that contains model columns, for a text question
 """
 class TextQuestion(models.Model):
-    question_number_id = models.IntegerField()
+
     title = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
