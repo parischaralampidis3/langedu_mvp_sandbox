@@ -8,6 +8,7 @@ from .models import (
 
 
 # Form for Student model
+#
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
@@ -68,13 +69,21 @@ class MultipleChoiceContainerForm(forms.ModelForm):
 class MultipleChoiceQuestionForm(forms.ModelForm):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ['multiple_choice_number_id', 'title', 'is_active', 'multiple_choice_container']
+        fields = ['multiple_choice_number_id', 'title', 'multiple_choice_container']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Question Title'}),
+            'multiple_choice_number': forms.NumberInput(attrs={'class': 'form-input'})
+        }
 
 # Form for MultipleChoiceOption
 class MultipleChoiceOptionForm(forms.ModelForm):
     class Meta:
         model = MultipleChoiceOption
         fields = ['option_number_id', 'option', 'multiple_choice_question']
+        widgets = {
+            'option': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Option Text'}),
+            'option_number_id': forms.NumberInput(attrs={'class': 'form-input'})
+        }
 
 # Form for ExerciseQuestionsAnswer model
 class ExerciseQuestionsAnswerForm(forms.ModelForm):
@@ -112,6 +121,28 @@ class AssignMultipleChoiceQuestionContainerToLessonForm(forms.ModelForm):
     class Meta:
         model = AssignMultipleChoiceQuestionContainerToLesson
         fields = ['multiple_choice_container', 'lesson']
+# Form for Assign MultipleChoiceQuestions to MultipleChoice Container
+
+class AssignMultipleChoiceQuestionsToMultipleChoiceContainer(forms.Form):
+    multiple_choice_container = forms.ModelChoiceField(
+        queryset=MultipleChoiceContainer.objects.all(),
+        label='Multiple Choice Container'
+    )
+    multiple_choice_questions = forms.ModelChoiceField(
+        queryset=MultipleChoiceQuestion.objects.all(),
+        label='Multiple Choice Questions'
+    )
+
+    def save(self):
+        if not self.is_valid():
+            raise ValueError('Form is not valid')
+
+        multiple_choice_container = self.cleaned_data['multiple_choice_container']
+        multiple_choice_questions = self.cleaned_data['multiple_choice_questions']
+
+        for question in multiple_choice_questions:
+            question.multiple_choice_container = multiple_choice_container
+            question.save()
 
 # Form for AssignTextQuestionsToTextQuestionContainer
 class AssignTextQuestionsToTextQuestionContainerForm(forms.Form):
