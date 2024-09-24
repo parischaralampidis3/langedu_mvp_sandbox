@@ -8,70 +8,103 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% tailwind_css %}
     <style>
+           .sidebarContainer {
+            background-color: #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 20%;
+            height: 100vh;
+            padding: 20px;
+           box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+            -webkit-box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+            -moz-box-shadow: 10px -1px 8px -3px rgba(0,0,0,0.38);
+        }
+        .two{
+            margin-top:0px;
+        }
+
+        .flexButtonsContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: stretch;
+            width: 100%;
+        }
+
         .button {
-            width: 200px;
-            margin-left: 0%;
+            width: 100%;
             background-color: #5997de;
-            padding: 6px;
+            padding: 10px;
             text-align: center;
             color: #fff;
             font-weight: 700;
         }
-        .flex-buttons {
-            display: flex;
-            flex-direction: row;
-        }
-        #delete:hover {
-            cursor: pointer;
-        }
+
         #border {
+            margin-left: 200px;
+            margin-top:50px;
             width: 500px;
             border: 1px solid #ddd;
         }
+
         #delete {
             color: tomato;
             font-weight: 700;
         }
+
         #update {
             color: blue;
             font-weight: 700;
         }
+
         #show {
             color: green;
             font-weight: 700;
         }
-        @media only screen and (max-width: 800px) {
-            .flex-buttons {
-                display: flex;
+
+        @media only screen and (max-width: 1024px) {
+            .sidebarContainer {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+
+            .flexButtonsContainer {
                 flex-direction: column;
                 align-items: center;
             }
-            .second-button {
-                margin-top: 20px;
-            }
+
             .button {
-                width: 200px;
-                margin-left: 15%;
-                background-color: #5997de;
-                padding: 10px;
-                text-align: center;
-                color: #fff;
-                font-weight: 700;
+                width: 80%;
+
             }
+
             #border {
-                width: 350px;
-                border: 1px solid #ddd;
+                width: 90%;
+                margin-left: 0;
+                margin-bottom: 20px;
             }
         }
-        @media only screen and (max-width: 2187px) {
+
+        @media only screen and (max-width: 600px) {
+            .sidebarContainer {
+                flex-direction: row ;
+                align-items: center;
+                padding:30px;
+            }
+
             .button {
-                width: 200px;
-                margin-left: 15%;
-                background-color: #5997de;
-                padding: 10px;
-                text-align: center;
-                color: #fff;
-                font-weight: 700;
+                width: 100%;
+            }
+
+            #border {
+                width: 100%;
+                padding:30px;
+                margin-left: 0;
+                margin-right: 0;
             }
         }
     </style>
@@ -79,11 +112,27 @@
 <body class="h-full">
     <div class="min-h-full">
         {% include 'views/navigation.html' %}
-        <div style="margin-top:50px">
-            <a href="{% url 'create_question_container' %}" target="_blank" class="button">Create a general section</a>
-                <a href="{% url 'create_text_question_container' %}" target="_blank" class="button">Create a text question section</a>
-            <a href="{% url 'create_text_question' %}" target="_blank" class="button">Create a text question</a>
-            <br><br><br>
+        <div class="flexButtonsContainer">
+
+            <div class="sidebarContainer">
+                <div>
+                    <div>
+                    <a href="{% url 'create_question_container' %}" target="_blank" class="button">Create a general section</a>
+                    </div>
+                    <br><br>
+                    <div>
+                    <a href="{% url 'create_text_question_container' %}" target="_blank" class="button">Create a text question section</a>
+                    </div>
+                    <br><br>
+                    <div>
+                    <a href="{% url 'create_multiple_choice_container' %}" target="_blank" class="button">Make mc question section</a>
+                    </div>
+                    <br><br>
+                    <div>
+                    <a href="{% url 'create_text_question' %}" target="_blank" class="button">Create a text question</a>
+                    </div>
+                </div>
+            </div>
             <h1 style="font-size:20px; font-weight:bold;" class="text-center">Question Sections</h1>
             <div id="border" class="grid grid-cols-3 lg:grid-cols-6 gap-2 items-center justify-center mx-auto mb-5 p-4 border-b border-gray-200">
                 {% for container in questions_container %}

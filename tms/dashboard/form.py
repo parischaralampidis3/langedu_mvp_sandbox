@@ -53,6 +53,7 @@ class TextQuestionContainerForm(forms.ModelForm):
             'is_active': forms.CheckboxInput(attrs={'class': 'form-input'}),
             'question_container': forms.Select(attrs={'class': 'form-input'}),
         }
+
 # Form for TextQuestion model
 class TextQuestionForm(forms.ModelForm):
     class Meta:
@@ -76,14 +77,12 @@ class MultipleChoiceQuestionForm(forms.ModelForm):
         }
 
 # Form for MultipleChoiceOption
-class MultipleChoiceOptionForm(forms.ModelForm):
-    class Meta:
-        model = MultipleChoiceOption
-        fields = ['option_number_id', 'option', 'multiple_choice_question']
-        widgets = {
-            'option': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Option Text'}),
-            'option_number_id': forms.NumberInput(attrs={'class': 'form-input'})
-        }
+
+MultipleChoiceOptionFormSet = modelformset_factory(
+    MultipleChoiceOption,
+    fields=["option_number_id","option"],
+    extra=4
+)
 
 # Form for ExerciseQuestionsAnswer model
 class ExerciseQuestionsAnswerForm(forms.ModelForm):
@@ -116,21 +115,21 @@ class AssignQuestionContainerToLessonForm(forms.ModelForm):
         fields = ['question_container', 'lesson']
 
 # Form for AssignMultipleChoiceQuestionContainerToLessonForm
-
 class AssignMultipleChoiceQuestionContainerToLessonForm(forms.ModelForm):
     class Meta:
         model = AssignMultipleChoiceQuestionContainerToLesson
         fields = ['multiple_choice_container', 'lesson']
+
 # Form for Assign MultipleChoiceQuestions to MultipleChoice Container
 
 class AssignMultipleChoiceQuestionsToMultipleChoiceContainer(forms.Form):
-    multiple_choice_container = forms.ModelChoiceField(
+    multiple_choice_container = forms.ModelMultipleChoiceField(
         queryset=MultipleChoiceContainer.objects.all(),
-        label='Multiple Choice Container'
+        widget=forms.CheckboxSelectMultiple
     )
-    multiple_choice_questions = forms.ModelChoiceField(
+    multiple_choice_questions = forms.ModelMultipleChoiceField(
         queryset=MultipleChoiceQuestion.objects.all(),
-        label='Multiple Choice Questions'
+        widget=forms.CheckboxSelectMultiple
     )
 
     def save(self):
@@ -184,7 +183,6 @@ class AssignTextQuestionsToExerciseForm(forms.Form):
                 answer=None  # Set answer to None or any default value
         )
 
-
 #Select an exercise from a dropdown
 """
 This class initiate a form field,
@@ -197,7 +195,6 @@ class SelectExerciseForm(forms.Form):
             queryset=Exercise.objects.all(),
             label='Exercise'
      )
-
 
 # Form for answering Exercise Questions
 class ExerciseAnswerForm(forms.ModelForm):
