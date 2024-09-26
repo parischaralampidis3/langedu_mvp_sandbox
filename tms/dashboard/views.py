@@ -6,7 +6,7 @@ from rest_framework import generics
 from .serializers  import StudentSerializer
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
     TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm, \
-    ExerciseForm,AssignTextQuestionsToExerciseForm,SelectExerciseForm,MultipleChoiceContainerForm
+    ExerciseForm,AssignTextQuestionsToExerciseForm,SelectExerciseForm,MultipleChoiceContainerForm,MultipleChoiceQuestionForm
 from .form import ExerciseAnswerFormSet
 from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
     TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer,TextQuestion,MultipleChoiceContainer
@@ -231,6 +231,22 @@ def create_text_question(request):
         'create_text_question_form': create_text_question_form
     }
     return render(request, 'questions/create_text_question.html', context)
+
+"""
+This view provides a logic for handle creating a multiple_choice_question
+"""
+def create_multiple_choice_question(request):
+    if request.method == 'POST':
+        create_multiple_choice_question_form = MultipleChoiceQuestionForm(request.POST)
+        if create_multiple_choice_question_form.is_valid():
+            create_multiple_choice_question_form.save()
+            return redirect('create_multiple_choice_question')
+    else:
+        create_multiple_choice_question_form = MultipleChoiceQuestionForm()
+    context = {
+        'create_multiple_choice_question_form': create_multiple_choice_question_form
+    }
+    return render(request, 'questions/create_multiple_choice_question_form.html', context)
 
 def update_question_container(request, id):
     update = get_object_or_404(QuestionContainer, id=id)
