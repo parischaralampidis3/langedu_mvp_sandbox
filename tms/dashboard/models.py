@@ -1,4 +1,7 @@
 from django.db import models
+"""
+This class initiates a model that sets model columns for Course table.
+"""
 class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(default='Default description')
@@ -20,7 +23,9 @@ class Category(models.Model):
         ordering = ['title']
     def __str__(self):
         return self.title
-
+"""
+This class initiates a model that sets columns at the db for creating a student.
+"""
 class Student(models.Model):
     username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=255)
@@ -36,7 +41,9 @@ class Student(models.Model):
         ordering = ['email']
     def __str__(self):
         return self.email
-
+"""
+This class initiates a model that sets columns at the db for creating a lesson.
+"""
 class Lesson(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(default='Default description')
@@ -49,6 +56,9 @@ class Lesson(models.Model):
         ordering = ['title']
     def __str__(self):
         return self.title
+"""
+This class initiates a model that sets columns for a questionContainer
+"""
 
 class QuestionContainer(models.Model):
     title = models.CharField(max_length=255)

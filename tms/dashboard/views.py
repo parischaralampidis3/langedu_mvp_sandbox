@@ -232,7 +232,6 @@ def create_text_question(request):
     }
     return render(request, 'questions/create_text_question.html', context)
 
-
 def update_question_container(request, id):
     update = get_object_or_404(QuestionContainer, id=id)
     if request.method == 'POST':
