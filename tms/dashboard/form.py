@@ -2,8 +2,8 @@ from django import forms
 from django.forms import modelformset_factory
 from .models import (
     Student, Course, Enrollment, AssignLessonToCourse, Lesson, QuestionContainer, TextQuestionContainer,
-    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise, MultipleChoiceContainer, MultipleChoiceQuestion,\
-    MultipleChoiceOption,AssignMultipleChoiceQuestionContainerToLesson,
+    AssignQuestionContainerToLesson, TextQuestion, ExerciseQuestionsAnswer, Exercise, MultipleChoiceQuestionContainer, MultipleChoiceQuestion,\
+    MultipleChoiceOption,AssignMultipleChoiceContainerToLesson,
 )
 
 
@@ -61,9 +61,9 @@ class TextQuestionForm(forms.ModelForm):
         fields = ['title', 'is_active', 'text_question_container']
 
 # Form for MultipleChoiceContainer model
-class MultipleChoiceContainerForm(forms.ModelForm):
+class MultipleChoiceQuestionContainerForm(forms.ModelForm):
     class Meta:
-        model = MultipleChoiceContainer
+        model = MultipleChoiceQuestionContainer
         fields = ['title', 'description', 'is_active', 'question_container']
 
 # Form for MultipleChoiceQuestion
@@ -115,16 +115,16 @@ class AssignQuestionContainerToLessonForm(forms.ModelForm):
         fields = ['question_container', 'lesson']
 
 # Form for AssignMultipleChoiceQuestionContainerToLessonForm
-class AssignMultipleChoiceQuestionContainerToLessonForm(forms.ModelForm):
+class AssignMultipleChoiceContainerToLessonForm(forms.ModelForm):
     class Meta:
-        model = AssignMultipleChoiceQuestionContainerToLesson
+        model = AssignMultipleChoiceContainerToLesson
         fields = ['multiple_choice_container', 'lesson']
 
 # Form for Assign MultipleChoiceQuestions to MultipleChoice Container
 
 class AssignMultipleChoiceQuestionsToMultipleChoiceContainer(forms.Form):
     multiple_choice_container = forms.ModelMultipleChoiceField(
-        queryset=MultipleChoiceContainer.objects.all(),
+        queryset=MultipleChoiceQuestionContainer.objects.all(),
         widget=forms.CheckboxSelectMultiple
     )
     multiple_choice_questions = forms.ModelMultipleChoiceField(

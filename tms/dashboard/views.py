@@ -6,10 +6,10 @@ from rest_framework import generics
 from .serializers  import StudentSerializer
 from .form import StudentForm, CourseForm, EnrollmentForm, LessonForm, AssignLessonToCourseForm, QuestionContainerForm, \
     TextQuestionContainerForm,AssignQuestionContainerToLessonForm,TextQuestionForm,AssignTextQuestionsToTextQuestionContainerForm, \
-    ExerciseForm,AssignTextQuestionsToExerciseForm,SelectExerciseForm,MultipleChoiceContainerForm,MultipleChoiceQuestionForm
+    ExerciseForm,AssignTextQuestionsToExerciseForm,SelectExerciseForm,MultipleChoiceQuestionContainerForm,MultipleChoiceQuestionForm
 from .form import ExerciseAnswerFormSet
 from .models import Student, Course, Enrollment, Lesson, Exercise, QuestionContainer, AssignLessonToCourse,\
-    TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer,TextQuestion,MultipleChoiceContainer
+    TextQuestionContainer,AssignQuestionContainerToLesson,ExerciseQuestionsAnswer,TextQuestion,MultipleChoiceQuestionContainer
 
 
 class StudentListView(generics.ListCreateAPIView):
@@ -205,12 +205,12 @@ Create a view for multiple choice container
 """
 def create_multiple_choice_container(request):
     if request.method == 'POST':
-        create_multiple_choice_question_container_form = MultipleChoiceContainerForm()
+        create_multiple_choice_question_container_form = MultipleChoiceQuestionContainerForm()
         if create_multiple_choice_question_container_form.is_valid():
             create_multiple_choice_question_container_form.save()
             return redirect('questions')
     else:
-        create_multiple_choice_question_container_form = MultipleChoiceContainerForm()
+        create_multiple_choice_question_container_form = MultipleChoiceQuestionContainerForm()
 
     context = {
         'create_multiple_choice_question_container_form': create_multiple_choice_question_container_form

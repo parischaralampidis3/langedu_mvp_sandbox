@@ -94,7 +94,7 @@ class TextQuestionContainer(models.Model):
 """
 This class initiates a model that contains model columns, for a multiple choice container
 """
-class MultipleChoiceContainer(models.Model):
+class MultipleChoiceQuestionContainer(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(default='Default Description')
     is_active = models.BooleanField(default=True)
@@ -135,7 +135,7 @@ class MultipleChoiceQuestion(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     multiple_choice_container = models.ForeignKey(
-        MultipleChoiceContainer,
+        MultipleChoiceQuestionContainer,
         on_delete=models.SET_NULL,
         null=True,
         blank=True
@@ -217,8 +217,13 @@ class AssignQuestionContainerToLesson(models.Model):
     def __str__(self):
         return f'{self.question_container.title} assigned to {self.lesson.title}'
 
-class AssignMultipleChoiceQuestionContainerToLesson(models.Model):
-    multiple_choice_container = models.ForeignKey(MultipleChoiceContainer, on_delete=models.CASCADE)
+class AssignMultipleChoiceContainerToLesson(models.Model):
+    multiple_choice_container = models.ForeignKey(
+        MultipleChoiceQuestionContainer,  # Corrected model name
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     assignment_date = models.DateField(auto_now=True)
     def __str__(self):

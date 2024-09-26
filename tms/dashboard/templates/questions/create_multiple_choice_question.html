@@ -41,7 +41,7 @@
             </div>
         </header>
         <div class="form_block container">
-<form class="form-block" action="{% url 'create_text_question' %}" method="post">
+<form class="form-block" action="{% url 'create_multiple_choice_question' %}" method="post">
     {% csrf_token %}
     <div>
         <p class="header">Please fill the form fields.</p>
@@ -56,7 +56,7 @@
     </div>
 
     <div class="input">
-        <label for="{{ create_multiple_choice_question_form.title.id_for_label }}">  <!-- Corrected from create_text_question__form -->
+        <label for="{{ create_multiple_choice_question_form.title.id_for_label }}">
             <span style="color:#c24b38;">*</span>Title:
         </label>
         {{ create_multiple_choice_question_form.title }}
