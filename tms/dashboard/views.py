@@ -246,7 +246,7 @@ def create_multiple_choice_question(request):
     context = {
         'create_multiple_choice_question_form': create_multiple_choice_question_form
     }
-    return render(request, 'questions/create_multiple_choice_question_form.html', context)
+    return render(request, 'questions/create_multiple_choice_question.html', context)
 
 def update_question_container(request, id):
     update = get_object_or_404(QuestionContainer, id=id)

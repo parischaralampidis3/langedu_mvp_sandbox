@@ -11,10 +11,9 @@ urlpatterns = [
     path('answer_exercise_question', answer_exercise_question, name='answer_exercise_question'),
     path('<int:id>', delete_question_container, name='delete_question_container'),
     path('create_text_question',create_text_question, name='create_text_question'),
-    path('create_multiple_choice_question', create_multiple_choice_question, name = "create_multiple_choice_question")
+    path('create_multiple_choice_question', create_multiple_choice_question, name = "create_multiple_choice_question"),
     path('assign_text_questions_to_text_container', assign_text_questions_to_text_container, name="assign_text_questions_to_text_container"),
     path('create_text_question_container', create_text_question_container, name="create_text_question_container"),
     path('assign_text_questions_to_exercise_form', assign_text_questions_to_exercise_form, name='assign_text_questions_to_exercise_form'),
     path('create_multiple_choice_container', create_multiple_choice_container, name='create_multiple_choice_container')
-
 ]

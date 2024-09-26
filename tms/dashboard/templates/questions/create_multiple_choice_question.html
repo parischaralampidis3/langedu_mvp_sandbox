@@ -1,10 +1,78 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-full bg-gray-100" lang="en">
 <head>
+    <title>Django Tailwind</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
 </head>
-<body>
+<style>
+    .form_block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10vh;
+    }
+    .sub-section {
+        margin-top: 40px;
+        border: 1px solid #ddd;
+        padding: 30px;
+    }
+    .input {
+        margin-top: 30px;
+    }
+    .warning {
+        color: tomato;
+        margin-top: 30px;
+    }
+    .header {
+        font-weight: 600;
+        font-size: 18px;
+    }
+</style>
+<body class="h-full">
+    <div class="min-h-full">
+        {% include 'views/navigation.html' %}
+        <header class="bg-white shadow">
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Add a multiple choice question</h1>
+            </div>
+        </header>
+        <div class="form_block container">
+<form class="form-block" action="{% url 'create_text_question' %}" method="post">
+    {% csrf_token %}
+    <div>
+        <p class="header">Please fill the form fields.</p>
+    </div>
 
+    <div class="input">
+        <label for="{{ create_multiple_choice_question_form.multiple_choice_number_id.id_for_label }}">
+            <span style="color:#c24b38;">*</span>Number:
+        </label>
+        {{ create_multiple_choice_question_form.multiple_choice_number_id }}
+        {{ create_multiple_choice_question_form.multiple_choice_number_id.errors }}
+    </div>
+
+    <div class="input">
+        <label for="{{ create_multiple_choice_question_form.title.id_for_label }}">  <!-- Corrected from create_text_question__form -->
+            <span style="color:#c24b38;">*</span>Title:
+        </label>
+        {{ create_multiple_choice_question_form.title }}
+        {{ create_multiple_choice_question_form.title.errors }}
+    </div>
+
+    {% include 'partials/submit_button.html' %}
+    <br><br>
+
+   <p class="warning">
+        The fields that are marked with (*) are required
+    </p>
+</form>
+
+        </div>
+        {% include 'views/footer.html' %}
+    </div>
 </body>
 </html>
